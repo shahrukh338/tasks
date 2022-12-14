@@ -1,0 +1,32 @@
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/java-swarm1:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/java-swarm1:${buildnumber}"
+    }
+    stage("Deploying application as Docker container in deployment server"){
+        
+        sshagent(['docker_test_server_ssh']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.253 docker network create -d overlay swarm_ntwk || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.253 docker service create --name my-service -p 8086:8080 --network swarm_ntwk --replicas 3 shahrukh338/java-swarm1:${buildnumber} || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.16.253 docker service update --image shahrukh338/java-swarm1:${buildnumber} my-service"
+            sh "docker rmi shahrukh338/java-swarm1:${buildnumber}"
+       }
+         
+    }
+}
