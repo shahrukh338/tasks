@@ -1,0 +1,79 @@
+node {
+   def mvnHome
+   stage('Approval #1') {
+       //input message: 'Pls Approve', parameters: [[$class: 'PromotedBuildParameterDefinition', description: 'Desc', jobName: 'ServiceMandi_Prasanna_Approval', name: 'App', process: 'Approval']]
+     //  notifyPrasanna1()
+   
+      //input 'Approve'
+      
+    }
+    
+   stage('Deployment') {
+       if("${params.DeploymentMode}"=='Magento')
+       {
+        build 'ServiceMandi_QA'
+       }else if("${params.DeploymentMode}"=='New Angular CS-Admin')
+       {
+           echo 'New csadmin'
+        build 'Servicemandi-uat-Angular10-csadmin'
+       }
+       else if("${params.DeploymentMode}"=='Old CS-Admin')
+       {
+        build 'Servicemandi-uat-csadmin'
+       }else if("${params.DeploymentMode}"=='Magento+New Angular CS-Admin')
+       {
+           build 'ServiceMandi_QA'
+        build 'Servicemandi-uat-Angular10-csadmin'
+       }
+       else if("${params.DeploymentMode}"=='Hunter')
+       {
+        build 'Servicemandi-uat-hunter'
+       }else if("${params.DeploymentMode}"=='Farmer')
+       {
+        build 'Servicemandi-uat-farmer'
+       }
+       else if("${params.DeploymentMode}"=='Hunter+Farmer')
+       {
+        build 'Servicemandi-uat-hunter'
+        build 'Servicemandi-uat-farmer'
+       }else if("${params.DeploymentMode}"=='Hunter+Farmer+New Angular CS-Admin')
+       {
+        build 'Servicemandi-uat-hunter'
+        build 'Servicemandi-uat-farmer'
+        build 'Servicemandi-uat-Angular10-csadmin'
+       }
+       else if("${params.DeploymentMode}"=='Magento+Hunter+Farmer')
+       {
+        build 'ServiceMandi_QA'
+        build 'Servicemandi-uat-hunter'
+        build 'Servicemandi-uat-farmer'
+       }else if("${params.DeploymentMode}"=='Magento+Hunter+Farmer+New Angular CS-Admin')
+       {
+        build 'ServiceMandi_QA'
+        build 'Servicemandi-uat-hunter'
+        build 'Servicemandi-uat-farmer'
+        build 'Servicemandi-uat-Angular10-csadmin'
+       }else
+       {
+           echo 'Incorrect Options'
+       }
+      //build 'Servicemandi-uat-hunter'
+   }
+   stage('Testing') {
+      notifyRelase()
+   }
+
+}
+
+def notifyPrasanna1() {
+  // send to email
+  mail bcc: '',
+  body: "Please go to ${BUILD_URL}console and verify the build ${params.Notes}",
+  cc: '', from: 'jenkinsadmin@gmail.com', replyTo: '', subject: 'email approval', to: 'shaik.masthanvali@gmail.com'
+}
+def notifyRelase() {
+  // send to email
+  mail bcc: '',
+  body: "Hello All,\nBelow points are deployed on UAT ${params.DeploymentMode}, please check and share the status to Development Team. \nDeployed Points:${params.Notes}",
+  cc: 'raghavi.n@gmail.com', from: 'jenkins@gmail.com', replyTo: 'raghavi@gmail.com', subject: 'ServiceMandi QA Released Points', to: 'shaik.masthanvali@gmail.com'
+}
