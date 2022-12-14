@@ -30,3 +30,11 @@ node{
          
     }
 }
+
+// pipeline steps
+// building pipeline in jenkins server
+// show latest build version in browser
+// rollback 
+// scaling service (container)
+// updating service with particular version(image) by pulling from github(docker pull shahrukh338/java-swarm1:4)
+// deleting a running container which is re-created by cluster
