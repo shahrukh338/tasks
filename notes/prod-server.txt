@@ -1,0 +1,995 @@
+History
+
+sudo systemctl start gunicorn-hr-mgt-api.socket
+    2  sudo systemctl start gunicorn-hr-mgt-api
+    3  vi gunicorn-hr-mgt-api
+    4  vi gunicorn-hr-mgt-api.service
+    5  vi gunicorn-hr-mgt-api.socket
+    6  vi gunicorn-hr-mgt-api-jenkins.socket
+    7  sudo vi gunicorn-hr-mgt-api-jenkins.socket
+    8  sudo vi gunicorn-hr-mgt-api-jenkins.service
+    9  sudo cd /var/lib/jenkins/workspace/
+   10  cd /var/lib/jenkins/workspace/
+   11  virtualenv --version
+   12  python3.9 -m venv hr-mgt-api-env
+   13  sudo python3.9 -m venv hr-mgt-api-env
+   14  python3.9 -version
+   15  python3.9 -v
+   16  cd /var/lib/jenkins/workspace
+   17  sudo python3.9 venv hr-mgt-api-env
+   18  python3.9 venv hr-mgt-api-env
+   19  python3.9 -m pip install --jenkins virtualenv
+   20  python3.9 -m pip install venv hr-mgt-api-env
+   21  ls
+   22  cd
+   23  cd django_project/
+   24  cd
+   25  mkdir jenkins_workspace
+   26  ls
+   27  cd jenkins_workspace/
+   28  python3.9 venv hr-mgt-api-env
+   29  python3.9 pip install virtualenv
+   30  python3.9 -m venv hr-mgt-api-env
+   31  source hr-mgt-api-env/bin/ac
+   32  source hr-mgt-api-env/bin/activate
+   33  ls
+   34  pip install gunicorn
+   35  sudo chmod 755 /home/bugadmin/jenkins_workspace
+   36  sudo chmod 755 /home/bugadmin/jenkins_workspace/
+   37  sudo chmod -R 777 /home/bugadmin/jenkins_workspace/
+   38  ls
+   39  jenkins_workspace/
+   40  ls
+   41  cd jenkins_workspace
+   42  ls
+   43  cd /home/bugadmin/jenkins_workspace
+   44  cd
+   45  cd /home/bugadmin/jenkins_workspace
+   46  cd
+   47  chmod 755 /home/bugadmin/jenkins_workspace
+   48  chmod 755 /home/bugadmin/jenkins_workspace/
+   49  systemctl restart jenkins
+   50  sudo chmod -R a+rw /home/bugadmin/jenkins_workspace
+   51  sudo nano /etc/sudousers
+   52  sudo visudo
+   53  sudo -i
+   54  cd /var/lib/jenkins/workspace/
+   55  ls
+   56  cd hr-mgt-api-env/
+   57  cd
+   58  cd /etc/nginx/
+   59  ls
+   60  vi nginx.conf
+   61  vi hrmgt.conf
+   62  cd /home/bugadmin/django_project/hr-mgt-api/
+   63  ls
+   64  cd
+   65  cd /etc/nginx/
+   66  ls
+   67  vi hr-mgt-api.conf
+   68  sudo vi hr-mgt-api-jenkins.conf
+   69  vi hr-mgt-api-jenkins.conf
+   70  vi hr-mgt-api.conf
+   71  vi hr-mgt-api-jenkins.conf
+   72  sudo vi hr-mgt-api-jenkins.conf
+   73  firewall-cmd --get-active-zones
+   74  sudo firewall-cmd --zone=public --add-port=3888/tcp --permanent
+   75  sudo firewall-cmd --reload
+   76  sudo systemctl reload nginx
+   77  cd /var/lib/jenkins/workspace/
+   78  sudo vi gunicorn-hr-mgt-api-jenkins.sock
+   79  ls
+   80  cd
+   81  cd /etc/systemd/system
+   82  ls
+   83  sudo systemctl gunicorn-hr-mgt-api-jenkins.socket
+   84  sudo systemctl start gunicorn-hr-mgt-api-jenkins.socket
+   85  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+   86  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+   87  sudo systemctl restart nginx
+   88  sudo systemctl status nginx
+   89  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+   90  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+   91  sudo systemctl enable gunicorn-hr-mgt-api-jenkins.socket
+   92  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+   93  sudo systemctl start gunicorn-hr-mgt-api-jenkins.socket
+   94  sudo systemctl enable gunicorn-hr-mgt-api-jenkins
+   95  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+   96  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+   97  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+   98  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket
+   99  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+  100  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.service
+  101  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket
+  102  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  103  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  104  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  105  cd /var/lib/jenkins/workspace/
+  106  sudo nano gunicorn.sock
+  107  /home/bugadmin/pmt-uat/pmt-env/bin/gunicorn --access-logfile - --workers                                                                                         3 --bind unix:/home/bugadmin/pmt-uat/gunicorn.sock projectManagement.wsgi:applic                                                                                        ation
+  108  systemctl restart nginx
+  109  sudo systemctl restart nginx
+  110  sudo systemctl restart gunicorn-pmt
+  111  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  112  netstat -tulnp
+  113  firewall-cmd --get-active-zones
+  114  sudo firewall-cmd --zone=public --add-port=3888/tcp --permanent
+  115  sudo firewall-cmd --reload
+  116  sudo journalctl -u gunicorn-hr-mgt-api-jenkins
+  117  sudo systemctl restart nginx
+  118  cd /etc/nginx
+  119  ls
+  120  sudo systemctl restart hr-mgt-api-jenkins
+  121  cd ..
+  122  cd
+  123  cd /etc/systemd/system
+  124  ls
+  125  sudo systemctl staus gunicorn-hr-mgt-api-jenkins.service
+  126  sudo systemctl status gunicorn-hr-mgt-api-jenkins.service
+  127  systemctl enable gunicorn-hr-mgt-api-jenkins.service
+  128  sudo systemctl status gunicorn-hr-mgt-api-jenkins.service
+  129  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.service
+  130  sudo systemctl status gunicorn-hr-mgt-api-jenkins.service
+  131  cd
+  132  cd /var/jenkins/workspace
+  133  cd /var/lib/jenkins/workspace
+  134  cd hr-mgt-api
+  135  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  136  cd
+  137  cd /etc/systemd/system
+  138  gunicorn-hr-mgt-api-jenkins --bind 0.0.0.0:3888 django_tracker_management                                                                                        .wsgi
+  139  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  140  cd
+  141  cd /var/lib/jenkins/workspace/hr-mgt-api-env/
+  142  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  143  cd ..
+  144  cd hr-mgt-api
+  145  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  146  cd ..
+  147  source hr-mgt-api-env/bin/activate
+  148  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  149  cd hr-mgt-api
+  150  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  151  cd
+  152  sudo journalctl -u gunicorn
+  153  sudo systemctl daemon-reload
+  154  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  155  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  156  sudo systemctl stop gunicorn-hr-mgt-api-jenkins
+  157  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins
+  158  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-ap                                                                                        i-jenkins
+  159  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins
+  160  sudo nginx -t && sudo systemctl restart nginx
+  161  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt                                                                                        -api-jenkins
+  162  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins
+  163  cd
+  164  deactivate
+  165  cd /etc/systemd/system
+  166  ls
+  167  vi gunicorn-hr-mgt-api.socket
+  168  vi gunicorn-hr-mgt-api-jenkins.socket
+  169  vi gunicorn-hr-mgt-api.service
+  170  vi gunicorn-hr-mgt-api-jenkins.service
+  171  vi gunicorn-pmt.service
+  172  vi gunicorn-hr-mgt-api-jenkins.service
+  173  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  174  systemctl restart gunicorn-hr-mgt-api-jenkins.service
+  175  systemctl daemon-reload
+  176  systemctl restart gunicorn-hr-mgt-api-jenkins.service
+  177  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  178  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  179  cd
+  180  cd /etc/systemd/system
+  181  ls
+  182  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  183  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/run/gunicorn.sock  django_tracker_management.wsgi:app                                                                                        lication
+  184  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/run/hr-mgt-api.sock  django_tracker_management.wsgi:a                                                                                        pplication
+  185  vi gunicorn-pmt.service
+  186  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-ap                                                                                        i-jenkins
+  187  rm -rf  gunicorn-hr-mgt-api-jenkins.socket
+  188  sudo rm -rf  gunicorn-hr-mgt-api-jenkins.socket
+  189  sudo rm -rf  gunicorn-hr-mgt-api-jenkins.service
+  190  cd /etc/systemd/system
+  191  ls
+  192  sudo systemctl stop gunicorn-pmt.service
+  193  cd
+  194  cd django_project/
+  195  ls
+  196  cd
+  197  cd pmt-uat
+  198  ls
+  199  source pmt-env/bin/activate
+  200  cd pmt-api/
+  201  git branch
+  202  git status
+  203  git pull
+  204  git status
+  205  python3.9 maanage.py runserver 10.30.1.78:3000
+  206  python3.9 manage.py runserver 10.30.1.78:3000
+  207  sudo systemctl start gunicorn-pmt.service
+  208  cd /etc/systemd/system
+  209  ls
+  210  sudo systemctl stop gunicorn-pmt.service
+  211  cd
+  212  cd pmt-uat
+  213  cd pmt-api
+  214  ls
+  215  cd ..
+  216  cd pmt-api/
+  217  git pull
+  218  sudo systemctl restart gunicorn-pmt.service
+  219  cd
+  220  cd /etc/systemd/system
+  221  ls
+  222  sudo nano gunicorn-hr-mgt-api-jenkins.socket
+  223  sudo nano gunicorn-hr-mgt-api-jenkins.service
+  224  vi gunicorn-hr-mgt-api-jenkins.socket
+  225  sudo vi gunicorn-hr-mgt-api-jenkins.socket
+  226  sudo systemctl enable gunicorn-hr-mgt-api-jenkins
+  227  sudo systemctl enable gunicorn-hr-mgt-api-jenkins.socket
+  228  sudo systemctl start gunicorn-hr-mgt-api-jenkins.socket
+  229  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+  230  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  231  cd
+  232  cd /etc/nginx
+  233  ls
+  234  sudo vi hr-mgt-api-jenkins.conf
+  235  sudo systemctl start  hr-mgt-api-jenkins
+  236  sudo systemctl start nginx
+  237  sudo systemctl status nginx
+  238  ls
+  239  sudo vi default.d
+  240  sudo vi hrmgt.conf
+  241  sudo vi hr-mgt-api.conf
+  242  sudo vi nginx.conf
+  243  sudo systemctl status nginx
+  244  sudo systemctl restart nginx
+  245  sudo systemctl s
+  246  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+  247  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  248  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  249  ls
+  250  systemctl daemon-reload
+  251  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+  252  sudo vi nginx.conf
+  253  systemctl daemon-reload
+  254  systemctl restart nginx
+  255  ls /var/lib/jenkins/workspace/hr-mgt-api-jenkins.sock
+  256  cd /var/lib/jenkins/workspace/
+  257  ls
+  258  ls /var/lib/jenkins/workspace/gunicorn-hr-mgt-api-jenkins.sock
+  259  cd /etc/nginx
+  260  ls
+  261  sudo vi nginx.conf
+  262  sudo systemctl restart
+  263  sudo systemctl restart nginx
+  264  cd  /var/lib/jenkins/workspace
+  265  ls
+  266  source hr-mgt-api-env/bin/activate
+  267  cd hr-mgt-api
+  268  python3.9 manage.py runserver 10.30.1.78:3888
+  269  sudo systemctl stop gunicorn-hr-mgt-api-jenkins
+  270  python3.9 manage.py runserver 10.30.1.78:3888
+  271  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+  272  sudo systemctl stop gunicorn-hr-mgt-api-jenkins
+  273  python3.9 manage.py runserver 10.30.1.78:3888
+  274  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  275  python3.9 manage.py runserver 10.30.1.78:3999
+  276  cd
+  277  deactivate
+  278  cd /etc/systemd/system
+  279  ls
+  280  sudo vi gunicorn-hr-mgt-api-jenkins
+  281  sudo vi gunicorn-hr-mgt-api-jenkins.socket
+  282  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  283  sudo system enable gunicorn-hr-mgt-api-jenkins.socket
+  284  sudo systemctl enable gunicorn-hr-mgt-api-jenkins.socket
+  285  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket
+  286  sudo vi /etc/nginx/nginx.conf
+  287  sudo systemctl daemon-reload
+  288  sudo systemctl restart nginx
+  289  sudo systemctl status nginx
+  290  ls
+  291  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  292  sudo vi gunicorn-hr-mgt-api-jenkins.socket
+  293  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  294  sudo systemctl daemon-reload
+  295  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  296  file /run/gunicorn.sock
+  297  sudo journalctl -u gunicorn-hr-mgt-jenkins.socket
+  298  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+  299  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  300  sudo nginx -t
+  301  sudo systemctl restart nginx
+  302  sudo ufw delete allow 3888
+  303  sudo tail -F /var/log/nginx/error.log
+  304  cd
+  305  sudo chmod 755 /var/lib/jenkins/workspace/gunicorn-hr-mgt-api-jenkins.soc                                                                                        k
+  306  sudo chmod -R 777 /var/lib/jenkins/workspace/gunicorn-hr-mgt-api-jenkins.                                                                                        sock
+  307  sudo tail -F /var/log/nginx/error.log
+  308  cd /etc/nginx
+  309  ls
+  310  sudo vi nginx.conf
+  311  sudo systemctl restart nginx
+  312  sudo tail -F /var/log/nginx/error.log
+  313  sudo vi nginx.conf
+  314  sudo systemctl restart nginx
+  315  sudo tail -F /var/log/nginx/error.log
+  316  sudo journalctl -u gunicorn-hr-mgt-jenkins.socket
+  317  sudo journalctl -u gunicorn-hr-mgt-jenkins.service
+  318  sudo journalctl -xe gunicorn-hr-mgt-jenkins.service
+  319  sudo vi /etc/systemd/system gunicorn-hr-mgt-api-jenkins.service
+  320  sudo vi /etc/systemd/system/gunicorn-hr-mgt-api-jenkins.service
+  321  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  322  sudo systemctl daemon-reload
+  323  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  324  sudo systemctl restart nginx
+  325  sudo tail -F /var/log/nginx/error.log
+  326  cd /etc/systemd/system
+  327  ls
+  328  cd /etc/systemd/system
+  329  ls
+  330  cd /etc/systemd/system
+  331  ls
+  332  cd django_project/
+  333  cd
+  334  cd pmt-uat/pmt-api
+  335  ls
+  336  git pull
+  337  git pull origin dev-anand
+  338  git status
+  339  git push
+  340  git branch
+  341  git pull
+  342  cd
+  343  cd /etc/systemd/system
+  344  sudo systemctl restart gunicorn-pmt
+  345  sudo systemctl status gunicorn-pmt
+  346  cd pmt-uat/pmt-api
+  347  git branch
+  348  git pull
+  349  git status
+  350  sudo systemctl restart gunicorn-pmt-api
+  351  cd
+  352  cd /etc/systemd/system
+  353  ls
+  354  sudo systemctl restart gunicorn-pmt
+  355  sudo systemctl stop gunicorn-hr-mgt-api
+  356  sudo systemctl stop gunicorn-hr-mgt-api.socket gunicorn-hr-mgt-api
+  357  cd
+  358  cd django_project/
+  359  ls
+  360  cd hr-mgt-api
+  361  git pull
+  362  git branch
+  363  gitpull
+  364  git pull
+  365  sudo systemctl start gunicorn-hr-mgt-api.socket gunicorn-hr-mgt-api
+  366  sudo systemctl status gunicorn-hr-mgt-api
+  367  cd django_project/
+  368  source /hr-mgt-api-env/bin/activate
+  369  ls
+  370  source hr-mgt-api-env/bin/activate
+  371  cd hr-mgt-api
+  372  python3.9 manage.py makemigrations
+  373  python3.9 manage.py runserver 10.30.1.78:2888
+  374  sudo systemctl restart gunicorn-hr-mgt-api.socket gunicorn-hr-mgt-api
+  375  sudo systemctl status  gunicorn-hr-mgt-api
+  376  git pull
+  377  sudo systemctl status gunicorn-hr-mgt-api
+  378  cd
+  379  sudo systemctl status gunicorn-hr-mgt-api
+  380  cd django_project/
+  381  ls
+  382  sudo -i
+  383  sudo systemctl restart gunicorn-pmt
+  384  sudo systemctl status gunicorn-pmt
+  385  cd pmt-uat
+  386  cd pmt-api
+  387  cd ..
+  388  source pmt-env/bin/activate
+  389  cd pmt-api
+  390  git pull
+  391  pip install -r requirements.txt
+  392  python3.9 manage.py makemigrations
+  393  python3.9 manage.py runserver 10.30.1.78:3000
+  394  cd
+  395  deactivate
+  396  cd django_project
+  397  source hr-mgt-api-env
+  398  ls
+  399  source hr-mgt-api-env/bin/activate
+  400  cd hr-mgt-api
+  401  git pull
+  402  python manage.py make migrations
+  403  python manage.py mae migrations
+  404  python manage.py makemigrations
+  405  ls
+  406  cd recritment_app/
+  407  ls
+  408  cd ..
+  409  python manage.py runserver 10.30.1.78:3000
+  410  cd
+  411  deactivate
+  412  cd /etc/systemd/system
+  413  ls
+  414  sudo systemctl restart gunicorn-hr-mgt-api.socket
+  415  sudo systemctl restart gunicorn-hr-mgt-api
+  416  sudo systemctl status gunicorn-hr-mgt-api
+  417  cd /etc/nginx/
+  418  ls
+  419  sudo vi nginx.conf
+  420  sudo vi hr-mgt-api-jenkins.conf
+  421  vi nginx.conf
+  422  sudo systemctl status nginx
+  423  sudo vi nginx.conf
+  424  sudo systemctl restart nginx
+  425  sudo systemctl status nginx
+  426  sudo vi nginx.conf
+  427  sudo vi hr-mgt-api-jenkins.conf
+  428  sudo systemctl start hr-mgt-api-jenkins
+  429  sudo vi nginx.d
+  430  ls
+  431  sudo vi conf.d
+  432  cd sites-enabled
+  433  ls
+  434  ln -s /etc/nginx/hr-mgt-api-jenkins.conf /etc/nginx/sites-enabled/
+  435  ln -s /etc/nginx/hr-mgt-api-jenkins.conf /etc/nginx/sites-enabled
+  436  ln -s /etc/nginx/hr-mgt-api-jenkins.conf /etc/nginx/sites-enabled/
+  437  nginx -t
+  438  sudo nginx -t
+  439  systemctl restart nginx
+  440  sudo systemctl restart nginx
+  441  cd /etc/systemd/system
+  442  ls
+  443  cd
+  444  cd /etc/nginx/
+  445  ls
+  446  sudo vi hr-mgt-api-jenkins.conf
+  447  sudo vi nginx.conf
+  448  sudo nginx -t
+  449  sudo systemctl restart nginx
+  450  sudo vi nginx.conf
+  451  cd /etc/nginx/conf.d/
+  452  ls
+  453  sudo vi pmt.conf
+  454  cd ..
+  455  sudo vi nginx.conf
+  456  sudo vi /var/log/nginx/error.log
+  457  cd
+  458  cd /var/lib/jenkins/workspace
+  459  ls
+  460  cd /etc/nginx/
+  461  ls
+  462  sudo vi hr-mgt-api-jenkins.conf
+  463  sudo systemctl restart nginx
+  464  sudo vi /var/log/nginx/error.log
+  465  cd /var/lib/jenkins/workspace
+  466  ls
+  467  cd
+  468  cd /etc/nginx/
+  469  ls
+  470  vi conf.d/pmt.conf
+  471  sudo vi hr-mgt-api-jenkins.conf
+  472  sudo systemctl restart nginx
+  473  sudo systemctl status nginx
+  474  sudo vi /var/log/nginx/error.log
+  475  sudo nano vi conf.d/hr-mgt-api-jenkins.conf
+  476  sudo vi nginx.conf
+  477  sudo systemctl restart nginx
+  478  sudo systemctl status nginx
+  479  ls
+  480  sudo rm -rf hr-mgt-api-jenkins.conf
+  481  ls
+  482  sudo systemctl status nginx
+  483  sudo vi conf.d/hr-mgt-api-jenkins.conf
+  484  sudo nginx -t
+  485  sudo systemctl restart nginx
+  486  cd /etc/systemd/system
+  487  ls
+  488  cd nginx.service.d
+  489  ls
+  490  cd ..
+  491  sudo vi gunicorn-hrmgt-api-jenkins.service
+  492  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  493  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.service
+  494  sudo systemctl daemon-reload
+  495  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.service
+  496  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.service
+  497  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+  498  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.service
+  499  sudo systemctl status gunicorn-hr-mgt-api-jenkins.service
+  500  sudo systemctl daemon-reload
+  501  sudo systemctl status gunicorn-hr-mgt-api-jenkins.service
+  502  sudo systemctl start gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-a                                                                                        pi-jenkins.service
+  503  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins.service
+  504  sudo vi /var/log/nginx/error.log
+  505  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  506  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins.service
+  507  sudo systemctl daemon-reload
+  508  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt-                                                                                        api-jenkins.service
+  509  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt                                                                                        -api-jenkins.service
+  510  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  511  sudo vi gunicorn-hr-mgt-api-jenkins.socket
+  512  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  513  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt                                                                                        -api-jenkins.service
+  514  sudo systemctl daemon-reload
+  515  sudo systemctl restart gunicorn-hr-mgt-api-jenkins.socket gunicorn-hr-mgt                                                                                        -api-jenkins.service
+  516  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  517  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  518  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  519  sudo systemctl daemon-reload
+  520  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  521  sudo systemctl stop gunicorn-hr-mgt-api-jenkins
+  522  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+  523  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  524  sudo systemctl restart gunicorn-hr-mgt-api
+  525  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  526  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  527  sudo systemctl stop gunicorn-hr-mgt-api-jenkins
+  528  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  529  sudo systemctl stop gunicorn-hr-mgt-api-jenkins.socket
+  530  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  531  sudo systemctl start gunicorn-hr-mgt-api-jenkins.socket
+  532  sudo systemctl status gunicorn-hr-mgt-api-jenkins.socket
+  533  sudo systemctl start gunicorn-hr-mgt-api-jenkins
+  534  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  535  cd
+  536  cd /var/lib/jenkins/workspace/hr-mgt-api-env/bin/
+  537  cd ..
+  538  source hr-mgt-api-env/bin/activate
+  539  cd hr-mgt-api
+  540  python3.9 manage.py runserver 10.30.1.78:3888
+  541  python3.9 manage.py runserver 10.30.1.78:3999
+  542  deactivate
+  543  cd /var/lib/jenkins/workspace/hr-mgt-api-env/
+  544  ls
+  545  cd
+  546  sudo vi /etc/systemd/system/gunicorn-hr-mgt-api.service
+  547  cd /var/lib/jenkins/workspace/hr-mgt-api
+  548  /home/bugadmin/django_project/hr-mgt-api-env/bin/gunicorn  --access-logfi                                                                                        le - --workers 3 --bind unix:/run/gunicorn.sock  django_tracker_management.wsgi:                                                                                        application
+  549  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/run/gunicorn.sock  django_tracker_management.wsgi:app                                                                                        lication
+  550  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/var/lib/jenkins/workspace/gunicorn-hr-mgt-api-jenkins                                                                                        .sock  django_tracker_management.wsgi:application
+  551  cd /var/lib/jenkins/workspace/
+  552  ls
+  553  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/var/lib/jenkins/workspace/gunicorn.sock  django_track                                                                                        er_management.wsgi:application
+  554  sudo vi /etc/systemd/system/gunicorn-hr-mgt-api.service
+  555  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  556  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  557  cd hr-mgt-api
+  558  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/var/lib/jenkins/workspace/gunicorn-hr-mgt-api-jenkins                                                                                        .sock  django_tracker_management.wsgi:application
+  559  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/run/gunicorn.sock  django_tracker_management.wsgi:app                                                                                        lication
+  560  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/var/lib/jenkins/workspace/gunicorn.sock  django_track                                                                                        er_management.wsgi:application
+  561  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/var/lib/jenkins/workspace/hr-mgt-api/run/gunicorn.soc                                                                                        k  django_tracker_management.wsgi:application
+  562  /var/lib/jenkins/workspace/hr-mgt-api-env/bin/gunicorn  --access-logfile                                                                                         - --workers 3 --bind unix:/run/gunicorn.sock  django_tracker_management.wsgi:app                                                                                        lication
+  563  cd /etc/system/system
+  564  cd /etc/systemd/system
+  565  ls
+  566  sudo vi gunicorn.socket
+  567  sudo vi gunicorn.service
+  568  cd
+  569  cd /home/bugadmin/django_project/
+  570  ls
+  571  cd
+  572  cd /etc/systemd/system
+  573  sudo vi gunicorn-hr-mgt-api-jenkins
+  574  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  575  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  576  sudo systemctl daemon-reload
+  577  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  578  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  579  sudo systemctl daemon-reload
+  580  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  581  sudo journalctl -u nginx
+  582  sudo less /var/log/nginx/error.log
+  583  sudo vi gunicorn-hr-mgt-api-jenkins.service
+  584  cd
+  585  cd /etc/nginx
+  586  ls
+  587  cd conf.d/
+  588  ls
+  589  sudo vi hr-mgt-api-jenkins.conf
+  590  sudo systemctl daemonreload
+  591  sudo systemctl daemon-reload
+  592  sudo systemctl restart nginx
+  593  sudo systemctl status nginx
+  594  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  595  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  596  sudo vi /etc/systemd/system/gunicorn-hr-mgt-api-jenkins.service
+  597  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  598  sudo systemctl daemon-reload
+  599  sudo systemctl restart gunicorn-hr-mgt-api-jenkins
+  600  sudo systemctl status gunicorn-hr-mgt-api-jenkins
+  601  sudo less /var/log/nginx/error.log
+  602  cd /var/lib/jenkins/workspace/hr-mgt-api
+  603  gunicorn --bind 0.0.0.3888 hr-mgt-api.wsgi
+  604  cd ..
+  605  source hr-mgt-api-env/bin/activate
+  606  cd hr-mgt-api
+  607  gunicorn --bind 0.0.0.3888 hr-mgt-api.wsgi
+  608  ls
+  609  cd hr-mgt-api-env/
+  610  ls
+  611  cd ..
+  612  deactivate
+  613  cd hr-mgt-api
+  614  source hr-mgt-api-env/bin/activate
+  615  pip install gunicorn
+  616  gunicorn --bind 0.0.0.3888 django_tracker_management.wsgi
+  617  gunicorn --bind 0.0.0.0.3888 django_tracker_management.wsgi
+  618  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  619  sudo ufw status
+  620  gunicorn --bind 0.0.0.0:3888 django_tracker_management.wsgi
+  621  gunicorn --bind 0.0.0.0:3888 .wsgi
+  622  gunicorn --bind 0.0.0.0:3 .wsgi
+  623  gunicorn --bind 0.0.0.0:3999 django_tracker_management.wsgi
+  624  cd pmt-uat
+  625  cd pmt-api/
+  626  git pull
+  627  git branch
+  628  git pull
+  629  ls
+  630  git pull
+  631  sudo -i
+  632  ls
+  633  cd pmt-ui
+  634  ls
+  635  cd
+  636  cd ui/
+  637  ls
+  638  cd pmt-ui/
+  639  git pull
+  640  git branch
+  641  git checkout dev
+  642  cd ..
+  643  cd pmt-ui/
+  644  ls
+  645  git pull
+  646  git status
+  647  git branch
+  648  cd
+  649  cd ui
+  650  ls
+  651  cd pmt-ui/
+  652  git pull
+  653  git branch
+  654  git checkout dev
+  655  git stash
+  656  git pull
+  657  git checkout dev
+  658  git pull
+  659  npm start
+  660  cd django_project/
+  661  ls
+  662  cd hr-mgt-api
+  663  git status
+  664  git pull
+  665  sudo -i
+  666  cd
+  667  sudo -i
+  668  cd /etc/nginx/
+  669  ls
+  670  sudo vi nginx.conf
+  671  sudo systemctl restart nginx
+  672  cd
+  673  cd /var/lib/jenkins/workspace/pmt-ui-dev
+  674  cd /var/lib/jenkins/workspace/
+  675  ls
+  676  cd pmt-ui-dev
+  677  npm start 10.30.1.78:3001
+  678  sudo chmod 777 /var/lib/jenkins/workspace/pmt-ui-dev/
+  679  sudo nano /etc/nginx/nginx.conf
+  680  sudo systemctl restart nginx
+  681  sudo systemctl status nginx
+  682  sudo vi /etc/nginx/nginx.conf
+  683  sudo -r
+  684  sudo -i
+  685  sudo systemctl start nginx
+  686  sudo systemctl status
+  687  sudo systemctl start nginx
+  688  sudo systemctl status nginx
+  689  cd /etc/nginx
+  690  vi nginx.conf
+  691  sudo -r
+  692  sudo -i
+  693  cd django_project/
+  694  ls
+  695  cd ..
+  696  ls
+  697  cd pmt-uat
+  698  ls
+  699  source pmt-env/bin/activate
+  700  cd pmt-api/
+  701  git branch
+  702  git status
+  703  git pull
+  704  sudo -i
+  705  ls
+  706  sudo -i
+  707  cd /etc/nginx/
+  708  ls
+  709  cd conf.d
+  710  vi pmt.conf
+  711  sudo vi pmt.conf
+  712  sudo systemctl restart gunicorn-pmt
+  713  sudo systemctl restart nginx
+  714  cd ..
+  715  cd systemd/system
+  716  ls
+  717  sudo vi gunicorn-pmt.service
+  718  sudo systemctl daemon-reload
+  719  sudo systemctl restart gunicorn-pmt
+  720  sudo systemctl status gunicorn-pmt
+  721  nginx -t
+  722  sudo nginx -t
+  723  sudo systemctl status nginx
+  724  sudo systemctl restart nginx
+  725  sudo vi gunicorn.service
+  726  sudo systemctl restart gunicorn
+  727  sudo systemctl daemon-reload
+  728  sudo systemctl restart gunicorn
+  729  sudo systemctl restart nginx
+  730  sudo systemctl status nginx
+  731  sudo systemctl status gunicorn
+  732  sudo systemctl stop gunicorn
+  733  sudo systemctl stop nginx
+  734  sudo systemctl status gunicorn
+  735  sudo systemctl start nginx
+  736  cd /var/lib/jenkins/workspace/pmt-api
+  737  ls
+  738  sudo rm gunicorn.service
+  739  ls
+  740  sudo systemctl start nginx
+  741  sudo systemctl start gunicorn
+  742  nginx -t
+  743  sudo nginx -t
+  744  cd /etc/systemd/nginx
+  745  cd /etc/nginx
+  746  ls
+  747  vi nginx.conf
+  748  systemctl restart nginx
+  749  sudo systemctl status nginx
+  750  cd ..
+  751  cd systemd/system/
+  752  ls
+  753  sudo vi gunicorn.service
+  754  sudo systemctl daemon-reload
+  755  sudo systemctl restart gunicorn
+  756  sudo systemctl status gunicorn
+  757  sudo vi gunicorn.service
+  758  /var/lib/jenkins/workspace/hr-mgt-api/hr-mgt-api-env/bin/gunicorn --acces                                                                                        s-logfile - --workers 3 --bind unix:/run/gunicorn.sock django_tracker_management                                                                                        .wsgi:application
+  759  sudo systemctl restart gunicorn
+  760  sudo systemctl restart nginx
+  761  sudo systemctl stop nginx
+  762  cd
+  763  cd /var/lib/jenkins/workspace/
+  764  ls
+  765  cd hr-mgt-api
+  766  ls
+  767  source hr-mgt-api-env/bin/activate
+  768  python manage.py runserver 10.30.1.78:2888
+  769  sudo systemctl restart nginx
+  770  sudo systemctl status gunicorn
+  771  sudo systemctl stop gunicorn
+  772  sudo systemctl stop gunicorn.socket
+  773  sudo systemctl stop gunicorn
+  774  sudo systemctl start gunicorn.socket gunicorn
+  775  sudo systemctl status gunicorn.socket gunicorn
+  776  cd ..
+  777  sudo nano gunicorn-pmt.sock
+  778  ls
+  779  sudo chmod 777 gunicorn-pmt.sock
+  780  sudo systemctl restart nginx
+  781  cd /var/lib/jenkins/workspace/pmt-api
+  782  ls
+  783  python --version
+  784  cd
+  785  python --version
+  786  python3.9 --version
+  787  cd /var/lib/jenkins/workspace/pmt-api
+  788  rm -rf pmt-api-env
+  789  sudo rm -rf pmt-api-env
+  790  ls
+  791  python3.9 venv pmt-api-env
+  792  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logf                                                                                        ile - --workers 3 --bind unix:/run/gunicorn.sock projectManagement.wsgi:applicat                                                                                        ion
+  793  python3 -m venv pmt-api-env
+  794  ls
+  795  pmt-api-env/
+  796  pip install gunicorn
+  797  source pmt-api-env/bin/activate
+  798  pip install gunicorn
+  799  pip install -r requirements.txt
+  800  python --version
+  801  sudo rm -rf pmt-api-env
+  802  ls
+  803  python3.9 -m venv pmt-api-env
+  804  source pmt-api-env/bin/activate
+  805  ls
+  806  python --version
+  807  pip install gunicorn
+  808  pip install -r requirements.txt
+  809  sudo systemctl restart nginx
+  810  sudo systemctl restart gunicorn-pmt
+  811  sudo systemctl daemon-reload
+  812  sudo systemctl restart gunicorn-pmt
+  813  sudo systemctl restart nginx
+  814  sudo systemctl restart gunicorn-pmt
+  815  python manage.py runserver 10.30.1.3000
+  816  python manage.py runserver 10.30.1.78:3000
+  817  python manage.py makemigrations
+  818  python manage.py migrate
+  819  sudo mv /home/bugadmin/pmt-uat/pmt-api/media /var/lib/jenkins/workspace/p                                                                                        mt-api
+  820  sudo mkdir media
+  821  ls
+  822  cd media/
+  823  ls
+  824  cd screenShots/
+  825  ls
+  826  cd ..
+  827  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logf                                                                                        ile - --workers 3 --bind unix:/run/gunicorn.sock projectManagement.wsgi:applicat                                                                                        ion
+  828  ls
+  829  ls
+  830  sudo nano gunicorn-pmt.sock
+  831  sudo nano gunicorn-pmt.socket
+  832  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logf                                                                                        ile - --workers 3 --bind unix:/run/gunicorn-pmt.socket projectManagement.wsgi:ap                                                                                        plication
+  833  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/python3.9 /var/lib/jen                                                                                        kins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logfile - --workers 3 -                                                                                        -bind unix:/run/gunicorn.sock projectManagement.wsgi:application
+  834  cd /home/bugadmin/pmt-uat/
+  835  ls
+  836  cd ..
+  837  ls
+  838  cd django_project/
+  839  ls
+  840  cd ..
+  841  cd
+  842  cd /var/lib/jenkins/workspace/pmt-api
+  843  python manage.py runserver 10.30.1.78:3000
+  844  deactivate
+  845  cd
+  846  cd /etc/systemd/system
+  847  ls
+  848  sudo vi gunicorn.socket
+  849  sudo nano gunicorn-pmt.socket
+  850  ls
+  851  sudo vi gunicorn-pmt.service
+  852  sudo systemctl restart gunicorn-pmt
+  853  sudo systemctl daemon-reload
+  854  sudo systemctl restart gunicorn-pmt
+  855  sudo vi gunicorn-pmt.service
+  856  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logf                                                                                        ile - --workers 3 --bind unix::/run/gunicorn-pmt.socket projectManagement.wsgi:a                                                                                        pplication
+  857  ls
+  858  sudo systemctl start gunicorn-pmt.socket
+  859  sudo systemctl status gunicorn-pmt.socket
+  860  sudo systemctl enable gunicorn-pmt.socket
+  861  sudo systemctl status gunicorn-pmt.socket
+  862  sudo systemctl start gunicorn-pmt.socket
+  863  sudo systemctl status gunicorn-pmt.socket
+  864  sudo systemctl stop gunicorn-pmt
+  865  sudo systemctl start gunicorn-pmt.socket
+  866  sudo systemctl status gunicorn-pmt.socket
+  867  sudo systemctl start gunicorn-pmt
+  868  sudo systemctl status gunicorn-pmt
+  869  sudo systemctl stop gunicorn-pmt
+  870  sudo systemctl stop gunicorn-pmt.socket
+  871  sudo systemctl stop gunicorn-pmt
+  872  sudo systemctl stop gunicorn.socket
+  873  sudo systemctl stop gunicorn
+  874  sudo systemctl start gunicorn.socket
+  875  sudo systemctl start gunicorn
+  876  sudo vi gunicorn-pmt.socket
+  877  sudo systemctl start gunicorn-pmt.socket
+  878  sudo systemctl daemon-reload
+  879  sudo systemctl start gunicorn-pmt.socket
+  880  sudo systemctl start gunicorn-pmt
+  881  sudo systemctl start gunicorn
+  882  sudo systemctl restart gunicorn.socket
+  883  sudo systemctl stop gunicorn-pmt
+  884  sudo systemctl stop gunicorn-pmt.socket
+  885  sudo systemctl stop gunicorn-pmt
+  886  sudo systemctl restart gunicorn
+  887  sudo systemctl stop gunicorn.socket
+  888  sudo systemctl start gunicorn.socket
+  889  sudo systemctl status gunicorn.socket
+  890  sudo systemctl enable gunicorn.socket
+  891  sudo systemctl start gunicorn.socket
+  892  sudo systemctl status gunicorn.socket
+  893  sudo systemctl stop gunicorn-pmt.socket
+  894  sudo systemctl stop gunicorn-pmt
+  895  sudo systemctl daemon-reload
+  896  sudo systemctl status gunicorn.socket
+  897  sudo systemctl stop gunicorn
+  898  sudo systemctl start gunicorn.socket
+  899  sudo systemctl start gunicorn
+  900  sudo vi gunicorn-pmt
+  901  sudo vi gunicorn-pmt.service
+  902  /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logf                                                                                        ile - --workers 3 --bind unix::/var/lib/jenkins/workspace/gunicorn-pmt.sock proj                                                                                        ectManagement.wsgi:application
+  903  sudo systemctl start gunicorn-pmt
+  904  sudo systemctl daemon-reload
+  905  sudo systemctl start gunicorn-pmt
+  906  sudo systemctl restart nginx
+  907  sudo systemctl status gunicorn-pmt
+  908  sudo systemctl status gunicorn-pmt.socket
+  909  sudo systemctl start gunicorn-pmt.socket
+  910  sudo systemctl status gunicorn-pmt.socket
+  911  sudo systemctl enable gunicorn-pmt.socket
+  912  sudo systemctl start gunicorn-pmt.socket
+  913  sudo systemctl status gunicorn-pmt.socket
+  914  sudo systemctl stop gunicorn-pmt
+  915  sudo systemctl stop gunicorn-pmt.socket gunicorn-pmt
+  916  sudo systemctl start gunicorn-pmt.socket gunicorn-pmt
+  917  sudo systemctl status gunicorn-pmt.socket gunicorn-pmt
+  918  sudo vi gunicorn-pmt.service
+  919  sudo systemctl stop gunicorn-pmt.socket gunicorn-pmt
+  920  sudo systemctl daemon-reload
+  921  sudo systemctl stop gunicorn-pmt.socket gunicorn-pmt
+  922  sudo systemctl start gunicorn-pmt.socket gunicorn-pmt
+  923  sudo systemctl status gunicorn-pmt.socket gunicorn-pmt
+  924  sudo systemctl stop nginx
+  925  sudo systemctl start nginx
+  926  sudo systemctl status gunicorn-pmt
+  927  sudo systemctl status gunicorn-pmt -l
+  928   /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/python3.9 /var/lib/je                                                                                        nkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logfile - --workers 3                                                                                         --bind unix::/run/gunicorn-pmt.sock projectManagement.wsgi:application
+  929   /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/python3.9 /var/lib/je                                                                                        nkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logfile - --workers 3                                                                                         --bind 0.0.0.0:3000 projectManagement.wsgi:application
+  930   /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin/python3.9 /var/lib/je                                                                                        nkins/workspace/pmt-api/pmt-api-env/bin/gunicorn --access-logfile - --workers 3                                                                                         --bind 10.18.1.78:3000 projectManagement.wsgi:application
+  931  sudo vi gunicorn.service
+  932  sudo vi gunicorn-pmt.service
+  933  sudo systemctl stop gunicorn-pmt.socket gunicorn-pmt
+  934  sudo systtemctl daemon-reload
+  935  sudo systemctl daemon-
+  936  sudo systemctl stop gunicorn-pmt.socket gunicorn-pmt
+  937  sudo systemctl start gunicorn-pmt.socket gunicorn-pmt
+  938  sudo systemctl status gunicorn-pmt
+  939  sudo systemctl restart nginx
+  940  sudo vi gunicorn-pmt.service
+  941  cd ..
+  942  cd conf.d
+  943  sudo vi pmt.conf
+  944  nginx -t
+  945  sudo nginx -t
+  946  sudo systemctl restart nginx
+  947  sudo chmod 777 /var/lib/jenkins/workspace/hr-mgt-api
+  948  sudo chmod 777 /var/lib/jenkins/workspace/hr-mgt-api/
+  949  sudo chmod -R 777 /var/lib/jenkins/worksp
+  950  sudo chmod 777 /var/lib/jenkins/workspace/hr-mgt-api/.git/
+  951  sudo chmod 777 /var/lib/jenkins/workspace/pmt-api/.git/
+  952  sudo chmod 777 /var/lib/jenkins/workspace/pmt-api/
+  953  sudo chmod 777 /var/lib/jenkins/workspace/pmt-ui-dev/
+  954  sudo chmod 777 /var/lib/jenkins/workspace/pmt-ui-dev/.git/
+  955  sudo chmod 777 /var/lib/jenkins/workspace/hr-mgt-ui/
+  956  sudo chmod -r 777 /var/lib/jenkins/workspace/hr-mgt-ui/
+  957  sudo chmod -R 777 /var/lib/jenkins/workspace/hr-mgt-ui/
+  958  sudo chmod -R 777 /var/lib/jenkins/workspace/hr-mgt-ui/.git/objects/
+  959  sudo chmod -R 777 /var/lib/jenkins/workspace/hr-mgt-ui/.git/
+  960  sudo chmod -R 777 /var/lib/jenkins/workspace/pmt-ui-dev/.git/
+  961  sudo chmod -R 777 /var/lib/jenkins/workspace/pmt-ui-dev/.git/objects/
+  962  docker version
+  963  sudo docker version
+  964  docker ls images
+  965  docker  images ls
+  966  sudo docker  images ls
+  967  sudo docker images ls
+  968  sudo docker images ps
+  969  sudo docker container ls
+  970  docker info
+  971  sudo docker info
+  972  sudo docker image -a
+  973  sudo docker images ls -a
+  974  sudo docker image ls -a
+  975  sudo docker inspect jenkins
+  976  netstat -tulpn
+  977  docker version
+  978  cd /var/lib/jenkins/workspace/pmt-api/pmt-api-env/bin
+  979  cd ..
+  980  source bin/activate
+  981  cd ..
+  982  pip install -r requirements.txt
+  983  cd /var/lib/jenkins/workspace/hr-mgt-api/
+  984  ls
+  985  cd hr-mgt-api-env/
+  986  ls
+  987  source bin/activate
+  988  cd ..
+  989  pip install -r requirements.txt
+  990  git pull
+  991  ls
+  992  df -h
+  993  sudo service jenkins status

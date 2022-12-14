@@ -1,0 +1,1273 @@
+
+
+--> kubectl api-resources
+--> kubectl get all -n namespace_name	 			( to get all resources list in that namespace)
+--> kubectl rollout history deployment deployment_name -n test-ns 	(to check rollout history)
+--> watch kubectl get pods -n namespace_name 			( to watch our pods in background)	
+--> kubectl set image deployment dm_name container_name=shahrukh338/java-web-app:31 -n ns_name --record=true
+--> kubectl rollout undo deployment dm_name -n ns_name 		(dm=deployment. used to rollout to previous version)
+--> kubectl rollout undo deployment dm_name -n ns_name --revision 5 (dm=deployment. used to rollout to particular version)
+####### --> kubectl get ds(deamonset/service/pod/deployment etc) kube-proxy -n kube-system -o yaml
+--> kubectl get hpa (horizantal pod autoscaling)
+
+
+
+( https://labs.play-with-k8s.com/ )
+google:	How do you handle CrashLoopBackOff?
+	How do you handle CrashLoopBackOff?
+
+tasks:
+--> kubectl get nodes (verify either all nodes are ready or not)
+
+
+K8S Admin: As a Kubernetes administrator some of the responsibilities will involve designing and implementing solutions to leverage a Kubernetes cluster, configuring hardware,
+	   peripherals, and services, managing settings and storage, deploying cloud-native applications, and monitoring and supporting a Kubernetes environment
+
+What is Kubernetes: Kubernetes is an open-source container orchestration tool for automating deployment, scaling, and management of containerized applications.
+		K8S Maintains and monitors the containers and Performs container-oriented networking 
+
+-f 	- filename
+-o 	- output
+-w 	- WATCH
+-l	- lebel
+
+Main Commands:
+	-- kubectl api-resources
+	-- 
+
+# if we have all yaml files in version control systems(github) then we can d
+
+Features:
+	1. Auto scaling
+	2. self healing
+	3. Automatic rollout and rollback
+	4. Horizantal scaling 
+	5.  Load balancing
+	6. storage orchestration
+
+�	We use Kubernetes for automation of large-scale deployment of Containerized applications.
+�	It can be used on cloud, on-premise datacenter and hybrid infrastructure.
+�	In Kubernetes we can create a cluster of servers that are connected to work as a single unit. 
+�	We can deploy a containerized application to all the servers in a cluster without specifying the machine name.
+�	We have to package applications in such a way that they do not depend on a specific host
+
+KEY-CONCEPTS:
+	* CAdvisor: Used for monitoring resource usage and performance v(Developed and maintained by Google, cAdvisor (container Advisor) is a running daemon that collects real-time monitoring data of containers. The project is an open-source monitoring tool that displays information in its own web interface)
+	* Pod: Group of containers
+	* Label: Used to identify pods
+	* Kubelet: Container agents, responsible for maintaining the set of pods
+	* Proxy: The load balancer for pods, helping in distributing tasks across them
+	* Etcd: A metadata service
+	* Replication controller: Manages pod replication
+	* Scheduler: Used for pod scheduling in worker nodes
+	* API server: Kubernetes API server
+
+MANIFEST FILE:
+	1.apiVersion
+	2.kind(pod, deployment,service)
+	3.metadata(pod information)
+	4.spec(image information
+
+
+Cluster Formation:
+	1.creating a k8s cluster(control plane and nodes)
+	2.deploy an aplication(Deployment file)
+	3.explore application(pods, nodes, troubleshoot witk kubectl)
+	4.expose application publicly(sevice,labels)
+	5.scale up application(Scaling)
+	6.update application(rolling updates and rollout)
+	
+	
+	|  --> master and nodes --> DeploymentFile --> creating Pods --> creating service to expose application --> scaling application --> rolling updates  |
+
+Architecture:
+	Master Node:
+	--> It is responsible for maintaining the desired state of the cluster we are working on.
+	--> The term master indicates a set of processes that are used to manage a cluster.
+	--> It contains Kubelet service info, API, scheduler, replication controller, and Kubernetes master.
+		the main components are:	1. API server
+					2. scheduler
+					3. Kube control manager
+					4. Etcd
+
+
+### 	 if any monitoring tool want to GET info then it will GET from etcd
+### 	scheduler will deploy pods on nodes but that thing is initiated by control manager to scheduler
+##	We can use docker image in other Runtimes(ex Rocket) without any changes
+##	here is no way to restart a pod, instead, it should be replaced by deleting the old pod 
+##  	CONFIG :config(file) path in kubernetes:  $HOME/. kube directory 
+##	kubectl : kubectl is a command-line interface for running commands against Kubernetes clusters
+**	deployment is nothing but application
+**	for indentation should use spaces in yaml[* two spaces] [tab will give errors]
+## 	pod: which will hava application on top of the container (172.17.0.1)
+##	A deployment is responsible for keeping a set of pods running.
+##	A service is responsible for enabling network access to a set of pods
+##	node(we can have multiple pods in node) --> pod --> containers(it is good to have one container for one pod) 
+##	Whenever we want to use dependency containers then only we use multiple containers in one pod
+##	We use -- to give linux commands to tell kubectl
+##	VM: in vm we deploy outr application on entire OS
+## 	We can check logs to pods using logs command
+##	Build tools
+
+		- Gradle:-Java, Scala, Android, C/C++, and Groovy.
+		- Maven:-Java, C#, Scala, Ruby etc..
+
+process:
+1. using kubectl the request goes to API server
+2. in API server the authentication and authorization and validate and process request 
+3. persist the request details in ETCD
+4. scheduler will try to assign nodes to pods which are unscheduled based upon cpu and Ram usage. 
+5. then the 
+
+	1. API(application Programming interface) server: 
+		- if we want to do anything then we need to contact with API server. this is the  communication center for developers, sysadmins and other components
+		- what ever we want to do in cluster we will communicate with API server
+		- using kubecli(kubernetes command line interface) we will commiunicate with cluster
+		- the config file will have information like where exactly API server has, which IP, port number that API server running,username and certificate to connect that api server 
+		- in Api server the authentication and authorization and validate and process request and persist the request details in ETCD
+	    Authentication and autherization in K8s:
+		- What are the users on Kubernetes: As the Kubernetes gateway, APIServer is the entrance for users to access and manage resource objects. Every access request needs a visitor legitimacy check, including verification of identity and resource operation authority, etc., then returns the access result after passing a series of verifications. Users can access API through kubectl commands, SDK, or sending REST requests. User and Service Account are two different ways to access the API.
+		- How to verify user identity: There is no built-in user resource type in Kubernetes that users cannot be stored in etcd, like how other resources are stored. Thus Kubernetes completes the authentication of ordinary users by client certs or other third-party user management systems, e.g., Google Account.
+		- The key here is to find a secure way to help ordinary users access Kubernetes resources with kubectl or rest API.
+		- There are couples of ways to authenticate an ordinary user:
+			- Client-side X509 Client Certs
+			- HTTP request
+			- Bearer token
+		- What is RBAC: Bearer token is a static token verify method, to enable which, you need to start APIServer with token-auth-file=authfile
+		- The authfile format is like, password,user,uid,"group1,group2".Each line represents one user.
+		- here are two ways to use Bearer token.
+			1. Use HTTP header set
+			2. Use kubeconfig
+	- AUTHERIZATION:
+		- RBAC and cluster RBAC
+		- cluster role(used to give access to complete cluster ) and cluster role binding(used to give access to few nodes or pods )
+		- role( access policy (scope like get,list,read, modify etc)(level of access)) and role binding(attaching(giving this to any user))
+		- IAM 
+
+	2. SCHEDULER: 
+		- it takes instruction from manager and creates container, Worker nodes info, it will decide where should create containers, complete info about containers
+		- The Kubernetes scheduler is a control plane process which assigns Pods to Nodes. The scheduler determines which Nodes are valid placements for each Pod in the 
+		   scheduling queue according to constraints and available resources. The scheduler then ranks each valid Node and binds the Pod to a suitable Node
+
+	3. Kube conrol Manager: 
+		- it monitors worker nodes, it will get notification from kubelet
+		- if any pod fails the info goes to manager,
+		- This will intimate to scheduler and scheduler will create new pod
+
+	4. ETCD: 
+		- is a simple distribute key value store. K8s uses etcd as its database to store all cluster data. some of the data stored in etcd is job scheduling information, pods, state information and etc.
+
+
+	Worker Nodes/Minions
+	--> Also called a �minion,� a worker node contains the services necessary to run the pods that are managed by the master.
+	--> Services it provides are Container Runtime, Kubelet, Kube-proxy, etc.
+	--> It contains Kubelet, cAdvisor, Services, Pods, and Containers.
+		the main components are:	1. kubelet
+					2. kube-proxy
+	1. Kubelet: 
+			-The kubelet is the primary "node agent" that runs on each node. It can register the node with the apiserver using one of: the hostname; a flag to override the hostname; or specific logic for a cloud provider 
+
+	2. kubeproxy: 
+		- The Kubernetes network proxy runs on each node. This reflects services as defined in the Kubernetes API on each node and can do simple TCP, UDP, and SCTP stream forwarding or round robin TCP, UDP, and SCTP forwarding across a set of backends. 
+		- Service cluster IPs and ports are currently found through Docker-links-compatible environment variables specifying ports opened by the service proxy. There is an optional addon that provides cluster DNS for these cluster IPs. 
+		- The user must create a service with the apiserver API to configure the proxy.
+
+KOPS(Kubernetes operations) Method:
+	1 sudo apt-get install awscli (to manage your AWS services)
+	2 need to install kubectl binaries with curl on ubuntu (Kubectl is a command line tool used to run commands against Kubernetes clusters.)
+		sudo curl url
+		sudo chmod +x ./kubectl
+		sudo mv kubectl /usr/local/bin/kubectl
+	3 install kops in ubuntu server (Kubernetes Operations, or Kops, is an open source project used to set up Kubernetes clusters easily and swiftly. It's considered the �kubectl� way of creating clusters. Kops allows deployment of highly available)
+	4 creating domain and hosted zone in aws
+	5 create and configure IAM in aws console
+	6 create IAM with 
+		S3 full access
+		ec2 full access
+		Route 53 full access
+		IAM full access 
+		VPC full access
+	7 create a s3 bucket using command line
+	8 setup k8s on aws using kops
+
+EKS
+
+	1.aws ec2
+		vps
+		iam role security groups
+		aws user with list of permissions
+	2.create a master node
+	3.create worker nodes and connect to cluster
+	  scaling configuration
+	  connect to server using kubectl
+
+NAMESPACES: 
+		- Namespaces are a way to organize clusters into virtual sub-clusters � they can be helpful when different teams or projects share a Kubernetes cluster. 
+	    	- mostly we create namespaces and work in namespaces, no one will not use dafault namespaces.
+			* kubectl create namespace masthan
+			* kubectl get --all-namespaces (to check all name spaces in cluster)
+			* kubectl get pods
+			* kubect get pods -n namespacename  --> to check pods in a particular namespace
+			* kubectx ( to switch multiple clusters )
+	default Namespaces:
+		1. default
+		2. kube-public (used for public resources)
+		3. kube-system  (used for Kubernetes components)
+
+NETWORKING:
+*** # the Pods are managed by deploment.yaml and the deployment is managed by service.yaml using labels. by using labes it will connect with exact server (ex: in podfile--> app: webserver and in servicesfile--> app: webserver)
+		- In Kubernetes, each Pod has an IP address.(in docker, every container gets each IP address but in kubernates only pod will get IP address)  A Pod can communicate with another 
+    		  Pod by directly addressing its IP address,but the recommended way is to use Services. A Service is a set of Pods, which can be reached by a single, fixed DNS name or IP address.
+ 		- In reality, most applications on Kubernetes use Services as a way to communicate with each other. 
+   		  Using a Service is much more flexible than addressing another Pod directly, because Pods can be restarted frequently, 
+   		  which means that addressing them by name or IP is a very brittle approach
+		- Even if a Pod has more than one container, it still has just one IP address.
+		- A container can connect to another Pod through a Service. A Service has an IP address, and also usually has a DNS name, like my-service.
+
+SERVICE: 		(  https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0   )
+		- Kubernetes services connect a set of pods to an abstracted service name and IP address. Services provide discovery and routing between pods. 
+              		- For example, services connect an application front-end to its backend, each of which running in separate deployments in a cluster.
+               		- we can access nodes with IP but we cannot access pods with IP, so to access pods we use service(-->ping 192.168.99.101 -->to ping node)
+		
+	- ClusterIP. Exposes a service which is only accessible from within the cluster.
+	- NodePort. Exposes a service via a static port on each node's IP.
+	- LoadBalancer. Exposes the service via the cloud provider's load balancer.
+	- ExternalName.
+
+			1.clusterIP :ClusterIP (default) - The service is not exposed outside the cluster, but can be addressed from within the cluster.
+
+   			2.NodePort (nodeport range 30,000 to 32,767):The service is exposed on a port on every node in the cluster. The service can then be accessed externally at <node_ip>:<node_port>. 
+              				 When using NodePort services you must make sure that the selected port is not already opened on your nodes.
+
+   			3.Load Balancer: The service is exposed as a load balancer in the cluster. LoadBalancer services will create an internal Kubernetes Service that is connected to a 
+                    		Load Balancer provided by your cloud provider (AWS, GCP, or Azure). This will create a publicly addressable set of IP addresses and a DNS name
+                    		that can be used to access your cluster from an external source.
+
+   			4.ExternalName - The service is mapped to a DNS name, not to a typical selector such as my-service or cassandra. You specify the CNAME with the spec.externalName parameter.
+
+INGRESS: 		https://medium.com/swlh/kubernetes-ingress-controller-overview-81abbaca19ec
+		- Ingress is not a Kubernetes Service, it can also be used to expose services to external requests. The advantage of an Ingress over a LoadBalancer or NodePort is that an Ingress can 
+		  consolidate routing rules in a single resource to expose multiple services. Strictly speaking, an Ingress is an API object that defines the traffic routing rules (e.g. load balancing, SSL termination, path-based routing, protocol), 
+		  whereas the Ingress Controller is the component responsible for fulfilling those requests
+		- Ingress is the most useful if you want to expose multiple services under the same IP address, and these services all use the same L7 protocol (typically HTTP)
+		- for exposing http and https traffic we use ingress(majority of 90% applications uses http and https)
+        		- Kubernetes Ingress is an API object that provides routing rules to manage external users' access to the services in a Kubernetes cluster, typically via HTTPS/HTTP.
+        		- With Ingress, you can easily set up rules for routing traffic without creating a bunch of Load Balancers or exposing each service on the node
+     		- traffic--ingrss controler(comes with ingress config file)--> redirect to particular services
+
+ 		#  If we only have to have a single service port we can use NodePort. In the case of multiple instances of the same service, we have to use the LoadBalancer.
+		# But what if we have to add one more service to our node and access it from another URL. In this case, we will have to add another load balancer to our cluster. This means that each service exposed with a LoadBalancer will get its own IP address and we will have to pay for each of these load balancers which can be quite expensive.
+	#	## An Ingress is used when we have multiple services on our cluster and we want the user request routed to the service based on their path. Consider an example, I have two services foo and bar in our cluster. When we type www.example.com/foo we should be routed to the foo service and www.example.com/bar should be routed to bar service. These routings will be performed by an Ingress. Unlike NodePort or LoadBalancer, Ingress is not actually a type of service. Instead, it is an entry point that sits in front of multiple services in the cluster. It can be defined as a collection of routing rules that govern how external users access services running inside a Kubernetes cluster.
+		# Ingress is most useful if you want to expose multiple services under the same IP address, and these services all use the same L7 protocol (typically HTTP). You only pay for one load balancer if you are using the native GCP integration, and because Ingress is “smart” you can get a lot of features out of the box (like SSL, Auth, Routing, etc)
+		# Ingress can be considered as the best way to expose multiple services under the same IP. Also, we should only pay for a single load balancer.
+
+SECRETES:
+		- A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod
+		  specification or in a container image. Using a Secret means that you don't need to include confidential data in your application code
+		- A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might 
+		  otherwise be put in a Pod specification or in a container image. Using a Secret means that you don't need to include confidential data in your application code
+
+			There are several options to create a Secret:
+				1.create Secret using kubectl command
+				2.create Secret from config file
+				3.create Secret using kustomize
+
+CONFIGMAP : 	- ConfigMaps will have non-sensitive configuration artifacts such as
+				 configuration files,
+				 command-line arguments, and 
+				 environment variables to your Pod  containers
+		  and system components at runtime. A ConfigMap separates your configurations from your Pod and components, which helps keep your workloads portable.
+		- A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.
+		- Image result for configmap kubernetes ConfigMaps bind non-sensitive configuration artifacts such as configuration files, command-line arguments, 
+		  and environment variables to your Pod containers and system components at runtime. A ConfigMap separates your configurations from your Pod and components, which
+		  helps keep your workloads portable
+*	   	- Use a ConfigMap to keep your application code separate from your configuration. 
+*	   	- A ConfigMap is a dictionary of key-value pairs that store configuration settings for your applications.
+****	 	- Kubernetes stores API objects like ConfigMaps and Secrets within the etcd cluster.
+	There are four different ways that you can use a ConfigMap to configure a container inside a Pod:
+		1. Inside a container command and args
+		2. Environment variables for a container
+		3. Add a file in read-only volume, for the application to read
+		4. Write code to run inside the Pod that uses the Kubernetes API to read a ConfigMap
+
+
+ConfigMap and secret in Kubernetes:
+          		- Both ConfigMaps and secrets store the data the same way, with key/value pairs, but ConfigMaps are meant for plain text data, 
+          		  and secrets are meant for data that you don't want anything or anyone to know about except the application.
+
+
+
+PROBES:	Kubernetes allows us to set up probes, which are health checks that can monitor a container's status. Kubelet can periodically run an action, such as an HTTP GET request to a given path, and modify the container's state based on the result
+(https://www.padok.fr/en/blog/kubernetes-probes)
+(https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes) --best blog for probes
+	Readiness
+		- Readiness probes are designed to let Kubernetes know when your app is ready to serve traffic. Kubernetes makes sure the readiness probe passes before allowing a service to send traffic to the pod. If a readiness probe starts to fail, Kubernetes stops sending traffic to the pod until it passes.
+		- The kubelet uses readiness probes to know when a container is ready to start accepting traffic. A Pod is considered ready when all of its containers are ready. One use of this signal is to control which Pods are used as backends for Services. When a Pod is not ready, it is removed from Service load balancers.
+	
+	Liveness
+		- Liveness probes let Kubernetes know if your app is alive or dead. If you app is alive, then Kubernetes leaves it alone. If your app is dead, Kubernetes removes the Pod and starts a new one to replace it.
+		- The kubelet uses liveness probes to know when to restart a container. For example, liveness probes could catch a deadlock, where an application is running, but unable to make progress. Restarting a container in such a state can help to make the application more available despite bugs.
+
+		- The kubelet uses startup probes to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure 
+		   those probes don't interfere with the application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running
+
+
+STATEFULSET:
+		- one after one get deployed  with statefullset(pods will create one after one) and the host name will not change when a pod killed and recreated multpiple times with same name
+		- StatefulSet is the workload API object used to manage stateful applications.
+              		  - Manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods.
+              		  - StatefulSets are valuable for applications that require one or more of the following.
+              		  - Stable, unique network identifiers. 
+              		  - Stable, persistent storage.
+              		  - Ordered, graceful deployment and scaling.
+              		  - Ordered, automated rolling updates.
+
+HEADLES SERVER:	Headless services are most often used for applications that need to access specific pods directly without going through the service proxy
+		- It is possible to create a service grouping that does not allocate an IP address or forward traffic, if there is a reason that you want to definitively 
+             		   control what specific pods you connect and communicat(ip will not allocate for headless server), if we get #(hash) prompt then it means we are inside pod
+			--> kubectl exec -it podname -- /bin/bash (to go inside a running pod and -- used to give linux commands)
+			--> kubectl logs podname ( to get logs)
+
+
+KUBERNETES SECURITY:
+		- The Kubernetes API is designed to be secure by default. It will only respond to requests that it can properly authenticate and authorize.
+		  That said, API authentication and authorization are governed by RBAC policies that you configure. Thus, the API is only as secure as your RBAC policies.
+		How do you secure containers in Kubernetes?	
+	(Kubernetes supports multiple authorization modules, such as ABAC mode, RBAC Mode, and Webhook mode. When an administrator creates a cluster, they configure the authorization modules that should be used in the API server.)
+			1.Enable Role-Based Access Control (RBAC)
+			2.Use Third-Party Authentication for API Server.
+			3.Protect ETCD with TLS and Firewall.
+			4.Isolate Kubernetes Nodes.
+			5.Monitor Network Traffic to Limit Communications.
+			6.Use Process Whitelisting.
+			7.Turn on Audit Logging.
+			8.Keep Kubernetes Version Up to Date
+			9.Lock Down Kubelet
+
+DEPLOYENT USE CASES
+		--> Create a Deployment to rollout a ReplicaSet. The ReplicaSet creates Pods in the background. Check the status of the rollout to see if it succeeds or not.
+		--> Declare the new state of the Pods by updating the PodTemplateSpec of the Deployment. A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate. Each new ReplicaSet updates the revision of the Deployment.
+		--> Rollback to an earlier Deployment revision if the current state of the Deployment is not stable. Each rollback updates the revision of the Deployment.
+		--> Scale up the Deployment to facilitate more load.
+		--> Pause the rollout of a Deployment to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
+		--> Use the status of the Deployment as an indicator that a rollout has stuck.
+		--> Clean up older ReplicaSets that you don't need anymore
+##		A deployment is used to keep a set of pods running by creating pods from a template.
+##		A service is used to allow network access to a set of pods.
+
+
+INIT CONTAINERS :
+		- A Pod can have multiple containers running apps within it, but it can also have one or more init containers, which are run before the app containers are started.
+                  Init containers are exactly like regular containers, except: 1.Init containers always run to completion 2.Each init container must complete successfully before the next one starts.
+
+INIT CONTAINERS AND SIDECAR CONTAINERS:
+		- Init containers run before applications containers run in a pod, and sidecar containers run alongside application containers in a pod
+
+PROVISIONER:	Each StorageClass has a provisioner that determines what volume plugin is used for provisioning PVs. This field must be specified.
+
+VOLUME: 	A Kubernetes volume is a directory that contains data accessible to containers in a given Pod in the orchestration and scheduling platform.
+
+WHY WE USE VOLUME IN K8S: 
+		A Volume in Kubernetes represents a directory with data that is accessible across multiple containers in a Pod. The container data
+	 	in a Pod is deleted or lost when a container crashes or restarts, but when you use a volume, the new container can pick up the data at the state before the container crashes.
+
+VOLUME SNAPSHOTS: let you create a copy of your volume at a specific point in time. You can use this copy to bring a volume back to a prior state or to provision a new volume.
+		5 Types of Kubernetes Volumes they are
+			1.Persistent Volumes
+			2.Ephemeral Volumes
+			3.EmptyDir Volumes
+			4.Kubernetes hostPath Volumes
+			5.Kubernetes Volumes ConfigMap
+DOCKER VOLUMES:
+		Docker volumes are file systems mounted on Docker containers to preserve data generated by the running container. The volumes are stored on the host, independent 
+		of the container life cycle. This allows users to back up data and share file systems between containers easily.
+
+##		PVs are volume plugins like Volumes, but have a lifecycle independent of any individual Pod that uses the PV.
+		This API object captures the details of the implementation of the storage, be that NFS, iSCSI, or a cloud-provider-specific storage system. A PersistentVolumeClaim (PVC) is a request for storage by a user.
+
+What is the difference between volume and volume mount?
+		A volume always keeps data in /var/lib/docker/volumes, while mount points can be created wherever we want. 
+
+HELM in K8S:
+		- Helm is a Kubernetes deployment tool for automating creation, packaging, configuration, and deployment of applications and services to Kubernetes clusters. 
+		  Kubernetes is a powerful container-orchestration system for application deployment.
+		- Helm helps IT teams manage Kubernetes applications through Helm Charts. These charts can enable teams to define, install, and 
+		  upgrade even the most complex Kubernetes applications.
+
+RUNNING MULTIPLE INSTANCES OF YOUR APP:
+	Objectives
+		- Scale an app using kubectl.
+		- Scaling an application
+		- In the previous modules we created a Deployment, and then exposed it publicly via a Service. The Deployment created only one Pod for running our 
+		  application. When traffic increases, we will need to scale the application to keep up with user demand.
+		- Scaling is accomplished by changing the number of replicas in a Deployment
+	Summary:
+		- Scaling a Deployment
+		- You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl create deployment command
+	Scaling overview
+	PreviousNext
+		- Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports autoscaling of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.
+		- Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.
+		- Scaling is accomplished by changing the number of replicas in a Deployment.
+		- Once you have multiple instances of an Application running, you would be able to do Rolling updates without downtime. We'll cover that in the next module. Now, let's go to the online terminal and scale our application.
+
+
+PULLING DOCKER IMAGE USING SECRETS:  {https://adamtheautomator.com/kubernetes-secrets/}
+		- When working with a Docker image in a private registry, you must authenticate before you can pull the image. The authentication can be handled by Kubernetes using Docker�s config.json.
+		- Kubernetes converts Docker�s config.json into a secret, and from there, you can use it in your deployment file. The private registry you will use in this tutorial is Docker Hub.
+LIMITING SECRET USAGE:
+		- You now have a secret, and you�re one step closer to keeping it safe. As you know, the concept of a secret is keeping it, well, a secret. So limit the secret usage to yourself. How? Set your secrets within a namespace. When a user is in a particular namespace, that user cannot access secrets from another namespace.
+		- If namespaces are not set, Kubernetes creates one with the name default, so all the secrets you created are in default namespace.
+
+
+
+
+
+HORIZANTAL SCALING:
+		- which means it creates new server(ec2) with same configuration instance and it doesnt require downtime
+		- means that the response to increased load is to deploy more Pods. This is different from vertical scaling, which for Kubernetes would mean assigning more resources (for example: memory or CPU) to the Pods that are already running for the workload
+VERTICAL SCALING:
+		- which means increasing server size (ex: 2 core server to 4 core) without creating a new server(ec2) and requires some downtime
+		- The Kubernetes Vertical Pod Autoscaler automatically adjusts the CPU and memory reservations for your pods to help "right size" your applications. This adjustment can improve cluster resource utilization and free up CPU and memory for other pods.		
+		- # cloud providers dont provide vertical auto scaling
+
+--> What is
+DEPLOYMENTS: 
+	manual deployment :  if we want to deploy manually then will install all things  manually and then startup the http server by some perticular port or will write all the commands in shell script file then run it on linux machine
+	
+	kubernetes deployment: deploying in application in k8s --> will write a dockerFile whatever we want to install or whatever dependencies and libraries we required will have put it all to gether in dockerfile and then build it and send it to any registry(dockerHub). from there will pull it with the help of deployment files and will give service to that deployment so that we can be access from outside.
+
+UPGRADE PROCESS: (https://auth0.com/blog/deployment-strategies-in-kubernetes/)
+	ROLLING UPDATES:
+	Objectives
+		- Perform a rolling update using kubectl.
+		- Updating an application
+		- Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.
+		- In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods). In Kubernetes, updates are versioned and any Deployment update can be reverted to a previous (stable) version.
+	Summary:
+		- Updating an app
+		- Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones.
+		- Similar to application Scaling, if a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. An available Pod is an instance that is available to the users of the application.
+	Rolling updates allow the following actions:
+		- Promote an application from one environment to another (via container image updates)
+		- Rollback to previous versions
+		- Continuous Integration and Continuous Delivery of applications with zero downtime
+		- If a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update.
+
+	-- In the following interactive tutorial, we'll update our application to a new version, and also perform a rollback.
+   		 - kubectl get deployments
+   		 - kubectl get pods
+       		 - kubectl describe pods
+       		 - kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+       		 - kubectl get pods
+       		 - kubectl describe services/kubernetes-bootcamp
+       		 - export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+        	 - echo NODE_PORT=$NODE_PORT
+      		 - curl $(minikube ip):$NODE_PORT
+      		 - kubectl rollout status deployments/kubernetes-bootcamp
+      		 - kubectl describe pods
+      		 - kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10
+      		 - kubectl get deployments
+      		 - kubectl get pods
+      		 - kubectl describe pods
+      		 - kubectl rollout undo deployments/kubernetes-bootcamp
+      		 - kubectl get pods
+      		 - kubectl describe pods
+	 Blue/Green Deployment Pattern:
+  		- A blue-green pattern is a type of continuous deployment, application release pattern which focuses on gradually transferring the user traffic from a 
+		    previously working version of the software or service to an almost identical new release - both versions running on production.
+		- The blue environment would indicate the old version of the application whereas the green environment would be the new version.
+		- The production traffic would be moved gradually from blue to green environment and once it is fully transferred, 
+		- The blue environment is kept on hold just in case of rollback necessity.
+	CANARY: 
+		A canary deployment strategy means deploying new versions of an application next to stable, production versions. You can then see how the canary version compares to the baseline, before promoting or rejecting the deployment. This step-by-step guide covers how to use the Kubernetes manifest task's canary strategy
+			How to do Canary Deployments on Kubernetes
+			Step 1: Pull Docker Image.
+			Step 2: Create the Kubernetes Deployment.
+			Step 3: Create the Service.
+			Step 4: Check First Version of Cluster.
+			Step 5: Create a Canary Deployment.
+			Step 6: Run the Canary Deployment.
+			Step 7: Monitor the Canary Behavior. Roll Back Canary Deployment.
+	# Canary deployment works similarly to blue-green deployment, but uses a slightly different method. Instead of another full environment waiting to be switched over once deployment is finished, canary deployments cut over just a small subset of servers or nodes first, before finishing the others
+
+	--> when you are updating is your pods will get down or not, if yes how long(time) it will take and without down how can you upgrade kubernetes or
+	--> pod os upgrade process
+	--> upgrade strategy( extra pods will create ) 
+
+ERRORS AND TROUBLESHOOTING: 
+	https://komodor.com/learn/kubernetes-troubleshooting-the-complete-guide/
+	ERRORS: 
+		1. OOM -- out of memory 
+		2. imagepullbackoffs: 1. wrong image details(repo name or imagename or tag)   2. when given wrong repository credentials 
+			 this will occure when we give wrong image details
+			- The status ImagePullBackOff means that a Pod couldn't start, because Kubernetes couldn't pull a container image. The 'BackOff' part means that Kubernetes will keep trying to pull the image, with an increasing delay ('back-off').
+			Resolve: To resolve it, double check the pod specification and ensure that the repository and image are specified correctly. If this still doesn't work, there may be a network issue preventing access to the container registry. Look in the describe pod text file to obtain the hostname of the Kubernetes node
+		3. crash loop backoff:  when the pod is getting into crash loop. need to change restart policy as never
+			- CrashLoopBackOff is a Kubernetes state representing a restart loop that is happening in a Pod: a container in the Pod is started, but crashes and is then restarted, over and over again. Kubernetes will wait an increasing back-off time between restarts to give you a chance to fix the error.
+			- one or more containers are failing and restarting repeatedly
+		4. Pod in pending state : 
+		5. application on pod failing
+		6. due to resource limitations 
+		7. Sudden jumps in load/scale
+	#  kubectl rollout history deployment deployment_name  ----> to check deployment versions when we want to rollback to previous version
+
+	EVENTS:
+		1. scheduled  --> when we use kubectl command that will received by API server and API server talks to scheduler and  asks for node to schedule this pod
+		2. pulled --> pulls the image from docker hub if it is not available in local
+		3. created --> with image, will create a container
+		4. started--> Running this contained
+
+	LOGS: 
+# 	describe a pod or describe a node --> we can get all info logs
+#	 if any error occured in node then we check status of that node using kubectl get nodes
+#	 if any error occured in pod then we check status of that pod using kubectl get pods (if any pod killed then we can get logs by using same commands)
+#	lens tool is used to monitor and as well manage(oparate)
+
+	# kubectl delete -f pod.yaml 	to delete the running pod
+	# (https://tennexas.com/kubernetes-troubleshooting-examples/)
+
+
+MONITORING:( if any monitoring tool want to GET info then it will GET from etcd)
+
+	What should you be monitoring in Kubernetes  ( https://middleware.io/blog/kubernetes-monitoring-tools/  )
+						( https://middleware.io/blog/kubernetes-monitoring-tools/  )
+	--> You can monitor a variety of KPIs to maintain Kubernetes security. They are typically broken down into three primary categories: 
+			1.  infrastructure monitoring.
+			2. services monitoring, and 
+			3. resource monitoring,
+
+	1. Infrastructure: You must monitor the metrics below to determine how well your Kubernetes infrastructure performs.
+
+		- CPU usage-You may gain valuable insight into cluster performance by monitoring the amount of CPU your pods are using with regards to their configured requests and limitations, as well as CPU utilization at the node level. A lack of available CPU at the node level can cause the node to restrict the amount of CPU allotted to each pod, much as a pod exceeding its CPU limits.
+		- Disk usage– Disk space is a non-compressible resource, just like RAM; hence scheduling issues with pods may arise if a kubelet detects low disc space on its root volume. A node will be marked as being under disc pressure if its remaining disc capacity exceeds a predetermined resource threshold. You should monitor the amounts of volume usage used by your pods besides node-level disc utilization. You can avoid issues at the application or service level by doing this.
+		- Pod resources– Resource requests and limits, along with resource consumption, will provide you with a more detailed analysis of your cluster’s ability to handle existing workloads and accept new ones. It’s critical to monitor resource utilization throughout your cluster, especially for your nodes and the pods they support.
+
+	2. Services
+		- The best KPIs for identifying microservice concerns quickly are those related to APIs, like request rate, call error, and latency. These matrices make it easy to find degradations in a microservice component.
+		- Automatic detection of REST API request irregularities makes it simple to find service-level metrics. These metrics provide uniform visibility across the clusters by measuring each Kubernetes service in the same way.
+
+	3. Resources
+		- To evaluate whether the cluster is underutilized or at capacity, monitor how the infrastructure and resources are used. It is crucial to keep track of node health and availability to determine whether there are enough resources and nodes accessible to replicate applications. Finally, monitor resource or chargeback utilization for each project or team.
+
+	benefits of Infrastructure monitoring
+	- The primary benefit of infrastructure monitoring is the ability to proactively react to worst-case scenarios, saving Dev’s time and Ops’ money. As a result, infrastructure monitoring is always at the core of every operation. 
+	Benefits of Infrastructure Monitoring
+	
+		1. Boost reliability:
+			Using infrastructure monitoring not only helps DevOps discover current issues but also assists in quickly resolving them. As a result, It reduces the Incident resolution time boosting reliability and reducing end-user complaints.
+		2. Improved resource management :
+			Resources are often one of the significant and most important parts of any infrastructure. That’s why DevOps and SRE teams always pay special attention to resource management. You should never have fewer resources than you need, nor should you have more resources than needed. Instead, you should aim to have the most optimal amount of resources. Infrastructure monitoring helps you understand what is optimal for you.  
+		3. Improved testing :
+			When you deploy any new applications, update existing ones, or reconfigure a part of your Infrastructure that your application relies on, you need to check that all your systems and apps aren’t negatively affected by this change. Infrastructure monitoring allows you to constantly check how your apps operate before and after reconfiguring.
+		4. Early problem detection :
+			Infrastructure monitoring helps you collect & analyze real-time and periodic data. Using this data, you can get a close understanding of what’s going on in your Infrastructure. You can also run scans to detect any issues in your Infrastructure. By doing this, you can identify problems early on in your Infrastructure before they affect your workflow and work towards fixing them.
+		5. Improved security :
+			Security is always an integral part of any organization. Monitoring your Infrastructure can help you identify security threats and compromises to help you improve security. For example, adding a few suspicious users with unexpected privileges can indicate a possible security breach. 
+		6. Increase ROI :
+			In today’s cloud-native world, Infrastructure monitoring significantly impacts a company’s return on investment. Further, DevOps and SRE teams devote less effort to monitoring your IT systems and more time to providing better value to your end-user. 
+
+MONITORING TOOLS FOR K8S:
+		- Grafana
+		- Prometheous
+		- kubernetes dashboard
+		- datadog
+
+--  main errors in nodes and troubleshooting
+--  main errors in pods and troubleshooting
+--  commands to check
+--  resources utilization and monitoring commands and tools
+
+
+
+
+grafana dashboard : 
+liveness Probes: The kubelet uses liveness probes to know when to restart a container 
+readiness probes : The kubelet uses readiness probes to know when a container is ready to start accepting traffic 
+static pods : Static Pods are managed directly by the kubelet daemon on a specific node, without the API server observing them. Unlike Pods that are managed by the control plane (for example, a Deployment); instead, the kubelet watches each static Pod (and restarts it if it fails)
+Controllers: replication controller, endpoints controller, namespace controller, and serviceaccounts controller.
+how to deploy pod in a particular node : You can add the nodeSelector field to your Pod specification and specify the node labels you want the target node to have. Kubernetes only schedules the Pod onto nodes that have each of the labels you specify. See Assign Pods to Nodes for more information
+
+How are pods allocated to nodes?
+In Kubernetes, the task of scheduling pods to specific nodes in the cluster is handled by the kube-scheduler. The default behavior of this component is to filter nodes based on the resource requests and limits of each container in the created pod.
+
+How do I move Kubernetes pods to different nodes?
+First of all you cannot “move” a pod from one node to another. You can only delete it from one node and have it re-created on another. To delete use the kubectl delete command. To ensure a pod lands on a specific node using node affinity/taints and tolerations.
+
+Which 2 steps does the scheduler perform to select a node for a pod?
+1. Node selection in kube-scheduler
+2. kube-scheduler selects a node for the pod in a 2-step operation: Filtering. Scoring.
+
+How do I restrict a pod from running on a specific node?
+To restrict a node to accept pod of certain types, we need to apply a taint on the node. You can apply the taint using kubectl taint.
+
+Why Kubernetes use PODS instead of containers?
+Instead running pods to ensure that each container within them shares the same resources and local network.
+
+How many types of PODS are there in Kubernetes?
+Pods are the smallest unit that can be deployed and managed by Kubernetes. The two types of Pods are Single Container pods & Multi Container Pods Kubernetes
+
+
+
+# No more than 300000 total containers in a pod
+# up to 110 Pods per node on Standard clusters, however Standard clusters can be configured to allow up to 256 Pods per node
+# A cluster is a set of nodes (physical or virtual machines) running Kubernetes agents, managed by the control plane. Kubernetes can have  clusters with up to 5000 nodes.
+
+NODE CONTROLLER:
+	The node controller is a Kubernetes control plane component that manages various aspects of nodes. The node controller has multiple roles in a node's life. The first is assigning a CIDR block to the node when it is registered (if CIDR assignment is turned on)
+# Kubernetes as a PaaS : Support for running on any infrastructure – on-prem, public clouds, or both. A centralized control plane for managing applications, no matter where they are hosted. Some automated management of applications and infrastructure in the form of load balancing, automatic container restarts, and so on
+
+What is a cluster controller?
+A device that handles the remote communications processing for multiple (usually dumb) terminals or workstations.
+
+What are the types of ingress controllers?
+	Kubernetes Ingress Controller with a LoadBalancer. 
+	Cloud-Based Ingress Controller. ...
+	Opensource Ingress Controller. ...
+	NGINX-Based Ingress Controllers. ...
+	HAProxy-Based Ingress Controllers. ...
+	F5 Container Ingress. ...
+	Envoy Proxy etc
+
+can we restart a pod?
+there is no way to restart a pod, instead, it should be replaced
+
+What is difference between kubectl and Kubelet?
+kubectl is the command-line interface (CLI) tool for working with a Kubernetes cluster. Kubelet is the technology that applies, creates, updates, and destroys containers on a Kubernetes node.
+
+Can we run pod on master node?
+By deafult, only worker node could run the pod, master only response for the scheduler/configuration. However, you could disable the “NoSchedule” property so master node could run pod as well.
+
+Can you pause a pod?
+Kubernetes does not allow you to stop or pause a pod's present state and resume it later. No. It is not feasible to pause a pod and restart it at a later time. Pods are encapsulated in Kubernetes utilizing a service.
+
+What happens if a pod dies Kubernetes?
+Pod lifetime: If a Node dies, the Pods scheduled to that node are scheduled for deletion after a timeout period. Pods do not, by themselves, self-heal. If a Pod is scheduled to a node that then fails, the Pod is deleted; likewise, a Pod won't survive an eviction due to a lack of resources or Node maintenance
+
+How to restart a failed pod in kubernetes deployment?
+	1. kubectl delete pod <podname> it will delete this one pod and Deployment/StatefulSet/ReplicaSet/DaemonSet will reschedule a new one in its place.
+	2. Just use rollout command : - kubectl rollout restart deployment mydeploy:
+	3.  You can set some environment variable which will force your deployment pods to restart: kubectl set env deployment mydeploy DEPLOY_DATE="$(date)"
+	4. You can scale your deployment to zero, and then back to some positive value
+		    kubectl scale deployment mydeploy --replicas=0
+		    kubectl scale deployment mydeploy --replicas=1
+	5. A better solution (IMHO) is to implement a liveness probe that will force the pod to restart the container if it fails the probe test. This is a great feature K8s offers out of the box. This is auto healing.
+
+How do you reset a pod without deployment?
+Restart Pods in Kubernetes with the rollout restart Command. By running the rollout restart command. Run the rollout restart command below to restart the pods one by one without impacting the deployment ( deployment nginx-deployment ). Now run the kubectl command below to view the pods running ( get pods ).
+
+Why do pods get rebooted?
+When a container is out of memory, or OOM, it is restarted by its pod according to the restart policy. The default restart policy will eventually back off on restarting the pod if it restarts many times in a short time span
+
+What is CPU limit in Kubernetes?
+Each container has a limit of 0.5 CPU and 128MiB of memory.
+
+what is minikube tunnel
+	minikube tunnel runs as a process, creating a network route on the host to the service CIDR of the cluster using the cluster's IP address as a gateway. The tunnel command exposes the external IP directly to any program running on the host operating system.
+
+What are taints and Tolerations in Kubernetes?
+Node affinity is a property of Pods that attracts them to a set of nodes (either as a preference or a hard requirement). Taints are the opposite -- they allow a node to repel a set of pods. Tolerations are applied to pods. Tolerations allow the scheduler to schedule pods with matching taints
+
+What is cordon and Uncordon in Kubernetes?
+Cordon will mark the node as unschedulable. Uncordon will mark the node as schedulable. The given node will be marked unschedulable to prevent new pods from arriving. Then drain deletes all pods except mirror pods (which cannot be deleted through the API server).
+
+
+ALIASES TO SAVE TIME: 
+		Kubernetes commands can be quite lengthy, so setting up some aliases for running kubectl is very helpful. You will no longer need to spell out the full command over and over again, making your life a lot easier when you want to execute multiple Kubernetes commands in one session.
+
+		 Example: You just need to type k instead of typing kubectl:
+
+		alias k='kubectl'
+		alias kc='k config view --minify | grep name'
+		alias kdp='kubectl describe pod'
+		alias krh='kubectl run --help | more'
+		alias ugh='kubectl get --help | more'
+		alias c='clear'
+		alias kd='kubectl describe pod'
+		alias ke='kubectl explain'
+		alias kf='kubectl create -f'
+		alias kg='kubectl get pods --show-labels'
+		alias kr='kubectl replace -f'
+		alias kh='kubectl --help | more'
+		alias krh='kubectl run --help | more'
+		alias ks='kubectl get namespaces'
+		alias l='ls -lrt'
+		alias ll='vi ls -rt | tail -1'
+		alias kga='k get pod --all-namespaces'
+		alias kgaa='kubectl get all --show-labels'
+
+
+
+Kubernetes architecture
+deployment and types
+Networking and service 
+namespaces
+secrets and config and configmap
+errors and troubleshoot with logs events
+Node, pod, container , kubelet , kube-proxy and detailed info 
+etcd and details
+monitoring with diff tools and detailed
+nodes and detailed
+scaling and detailed
+upgrade process and types
+probes and detailed
+different controllers and detailed
+
+
+What is the use of Envoy?
+Envoy is an open-source edge and service proxy designed for cloud-native applications. It's written in C++ and designed for services and applications, and it serves as a data plane for service mesh.
+
+What is ambassador in kubernetes?
+In Kubernetes, Ambassador can be used to install and manage Envoy configuration. Ambassador supports zero downtime configuration changes and integration with other features like authentication, service discovery, and services meshes.
+
+Kubernetes by Naina: 
+defination: open source container orchestration tool
+helps to manage containerized applications
+features: 
+	high availability (the application has no downtime)
+	scalability or high performance
+	disaster recovery - backup or restore
+---------------------------------------------2-----------------------------------------
+2) managed k8s clusters : in this everything is managed. any node has issue the new node will be created. everything is managed in this.
+	EKS
+	AKS
+	GKE
+	IKE	etc
+ Self managed k8s cluster(we should manage) : we need to install, we need to manage the control plane, if something goes wrong with our control plane then we need to take care of our self, we need to identify the problem and fix the problem	
+	if something goes wrong with worker machines like storage, cpu or networking issue then also we need to identify and fix that issue, but in self managed cluster pods and containers are managed by k8s cluster
+	Minikube  - 2gb ram and 20 gb rom 
+	Kubeadm - 
+	kubespary
+
+# if jenkins server have kubectl and configfile then jenkins also do the deployments in kubernetes
+# we can install kubectl in any server either linux/windows/mac
+# we can't controll resource quota
+# if we didnt give any namespace to create any resource it will be created in default namespace
+# kube-system namespace used for objects created by the Kubernetes system.
+#  namespaces provides a mechanism for isolating groups of resources within a single cluste
+# The pods could communicate with each other across namespaces however
+
+we can create namespaces in two types
+1. imperative approach: by using commands
+2. Declarative approach: by creating/update/delete in the form of manifest files
+
+
+## RBAC: Kubernetes RBAC is a key security control to ensure that cluster users and workloads have only the access to resources required to execute their roles.
+# in kubernetes we can also use json but mostly use yaml only
+# kubectl create -f filename
+# kubectl apply -f filename
+# kubectl delete -f filename
+# kubectl update -f filename
+#### The key difference between kubectl apply and create is that apply creates Kubernetes objects through a declarative syntax, while the create command is imperative.
+
+RESOURCE QUOTA: ( https://kubernetes.io/docs/concepts/policy/resource-quotas/ )
+		- A resource quota, defined by a ResourceQuota object, provides constraints that limit aggregate resource consumption per namespace. It can limit the quantity of objects that can 
+		   be created in a namespace by type, as well as the total amount of compute resources that may be consumed by resources in that namespace.
+		- It can limit the quantity of objects that can be created in a namespace by type, as well as the total amount of compute resources that may be consumed by resources in that namespace
+	# if we dont have nodes in cluster then before increasing resource quota, admin will add resource and node first, and then he will increase quota
+
+## multi-container container or side car container both are same which is a pod can contain multiple co-located contaieners (in same pod)
+
+
+What is node affinity?
+	- Node affinity is a set of rules used by the scheduler to determine where a pod can be placed. 
+	- The rules are defined using custom labels on nodes and label selectors specified in pods. 
+	- Node affinity allows a pod to specify an affinity (or anti-affinity) towards a group of nodes it can be placed on.
+
+What is the difference between node affinity and pod affinity?
+	The affinity feature consists of two types of affinity: Node affinity functions like the nodeSelector field but is more expressive and allows you to specify soft rules. 
+	Inter-pod affinity/anti-affinity allows you to constrain Pods against labels on other Pods.
+
+What is node affinity and node selector?
+	Node affinity enables a conditional approach with logical operators in the matching process, while nodeSelector is limited to looking for exact label key-value pair matches. 
+	Node affinity is specified in the PodSpec using the nodeAffinity field in the affinity section.
+
+## kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node> (to check pods in particular node)
+# we can give multiple labels also like 	app: nginx 	 
+					version: 7 etc.
+
+kubectl apply -f mavenwebapppod.yaml --dry-run=client
+
+
+
+-------------------3 Namespace, ResourceQuota-------------------
+
+#IQ--> what is common in containers which are running on same pod : Pod network IP address, Storage, network and any other specification applied to pod
+#IQ--> how two containers in the same pod will commiunicate:- by using localhost:port we will communicate. they no need to use ip 
+# POD
+# Single and multiple(side car containers) Containers
+######   kubectl api-respurces ---> 
+	namespaced true means -- its a namespace level resource
+	namespcaed false means -- its a cluster level resource
+#### resourse quota
+
+
+---------------4 Pod lifesycle, service----------------------
+
+
+---------------------5 service, endpoints---------------------------------
+service and service discovery
+labels
+selectors
+Node port
+
+endpoints: kubectl get ep -n test-ns
+---> by using kubectl get pods -o wide :-(we can chaeck in which node our pod is sceduled)
+	--> to  communicate with our container we need to use service to access pod(application)
+
+---> curl -v podIP:port /maven-web-application/ (by using  this we can access cluster from internally with any node which are in the same cluster)
+# within the namespace object name should be unique 
+	- if we have any pod name with test-pod. so in the same namespace we cant have pod with test-pod again. but we can create in different namespace if required 
+
+##### for every mycro-service we will have saparate dockerfile, deploymet.yaml, service.yaml etc
+
+Docker service : in swarm service is managing containers and as well as we can  access containers using service_name. by using service we scale up and scale down application
+K8s Service: is used to expose to the outside(internet).
+	# service will identify the pods by using labels and selectors
+	# in kubenretes clusterIp is default Ip
+
+#####  in kubernetes a default DNS will be running 
+	--> kubectl get pods -n kube-system ( 2 core dns pods will be running)
+		coredns
+		coredns
+
+### whenever we are using labels then the kubernetes will save that pod ip in coredns(kube-dns)
+
+---> kubectl get pods --show-labels -n test-ns (to check labels in the particular namespace)
+---> kubectl exec -it nodejspod -n test-ns -- sh   (if we want to go inside a container running in pod)
+---> kubectl exec -it nodejspod -n test-ns -c containername -- sh   ( when we have multiple containers running in pod then we use this command to go inside a particular container)
+## A Pod can communicate with another Pod by directly addressing its IP address, (and also with service_name/podname within the cluster)
+
+browser--> serverip:port(master/anynode)--> serviceIP -->PodIP
+
+#######  service is a logical thing but in background everything is managed by kube-proxy only
+
+---------------------6 FQDN, errors, StaticPod, ReplicationController-----------
+Fully qualified domain name(FQDN):-
+ servicename.namespace.svc.cluster.local
+mavenwebappsvc.test-ns.svc.cluster.local
+
+--> kubectl get all -A
+
+# when we are  giving resource quota(how much storage and cpu is allowed for that pod), it wont check either our device has that much resources or not
+# but when we are giveng resources(how much capacity required to run the pod) in pod level then it will check the  system resources. the storage is available then only the scheduler will schedule the pod.
+
+--> 	300 pods
+	each pod has 1 container
+	that container required 1gb RAM 1 CPU
+	2 GB 2 CPU
+ required    	750GB RAM
+     		650 CPU
+	
+	10 Nodes
+   each Node 128 GB RAM
+	64 Core CPU
+# when we are adding new pods then we need to add nodes accordingly
+
+# when we are requisting pod then 
+	--> first the request will go to API server
+	--> API-servcer will do the authentication and autherization and save the data in etcd.
+	--> then scheduler will work with kubelet to find which node is available to create a pod
+	--> kubelet will work with docker runtime(docker) to pull the images
+	--> the entire data is stored in etcd
+pending-->  this will occure in many cased, it can be due to insufficient resources or there could be some other issue.
+	kubectl describe pod <podname>.
+	kubectl logs pod <podName>.
+crashLoopBackOff -->because of the container process is not coming up, the issue with code or application. so we need to build the image again with correct code.
+	kubectl describe pod <podname>.
+	kubectl logs pod <podName>.
+ImagePullBackOff/ErrorImagePull: it will occure when we given wrong registry/image/tag details or wrong login credentials
+CreateContainerConfigError: when we are referring configmap or secrets in manifest file, but when we dont have those secrets or configmaps in cluster then this error will occure.
+OOM(out of memory): this will be happen due to running out of memory and CPU.
+---
+# Pods should be created and managed by some controllers
+	ReplicationControllers: it is responsible for managing pod life-cycle. it is responsible for making sure that the specified number of pods are running at any point of time.
+	ReplicaSet
+	DaemonSet
+	Deployment
+	StatefulSet
+
+Static PODS:static pods are directly  managed by kubelet and the API server does not have any control over these pods.
+	- the kubelet is responsible to watch each static pod and restart it if it crashed.
+	- the static pods running on a node are visible on the api server but connot be controlled by the API server.
+	- static pods does not have any associated replication controllers, kubelet service itself watches it and restart it when it crashes.
+	- there is no health checks for static pod
+	- the main use for static pods is to run a self-hosted control plane: in other words using kubelet to supervise the individual control plane components
+	- static pods are always bound to one kubelet on a specific node
+--> /etc/kubernetes/manifest/ (this is the path if we want create a static pod)
+example:
+pod/etcd-ip-172-31-18-109                      
+pod/kube-apiserver-ip-172-31-18-109            
+pod/kube-controller-manager-ip-172-31-18-109   
+pod/kube-scheduler-ip-172-31-18-109      
+
+# we use static pods for control plane .
+
+----------ReplicationController:
+apiVersion: v1
+kind: ReplicationController
+metadata:    			# this metadata is for ReplicationController
+  name: mavenwebapprc
+  namespace: test-ns
+				#labels:     			# NOT Mandatory to define labels
+spec:       				#  this is ReplicationController specification
+  replicas: 2   			# default replica is 1
+  selector:    			# Not mandatory if we want we can give
+    app: mavenwebapp
+  template:     			# POD template(pod details)
+    metadata:   			# this metadata for POD
+      name: mavenwebapppod 		# pod name
+      labels:  	 		# pod labels
+        app: mavenwebapp
+    spec:         			# this is POD specification
+      containers:
+      - name: mavenwebappcontainer
+        image: dockerhandson/maven-web-application:1
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mavenwebappsvc
+  namespace: test-ns
+spec:
+  type: NodePort
+  selector:
+    app: mavenwebapp
+  ports:
+  - port: 80
+    targetPort: 8080
+-->kubectl scale rc rc_name --replicas=5 -n namespace_name (to scale up/down the pods)
+--> kubectl delete rc rc-name -n namespace-name	 (to delete replication controlle. it will also delete pods )
+--> kubectl delete -f rc_file.yaml		 (to delete rc and also delete service and pods)
+
+----------------------------7 ReplicationController, Replicaset, DaemonSet ----------------------------------
+ReplicaSet: it is the advanced version of ReplicationController. Replicaset also manages the pod lifecycle. it will create and manage pods and we scale in, scale out the  pod replicas.
+	- only difference between replicationController and replicaset  is selector support.
+	- selectors are not mandatory in RC and in RS selectors are mandatory.
+	- RC supports only equality based selector
+	- RS supports both equality andser(Expression) based selector
+
+differences between RC and RS in manifest file:-
+apiVersion: v1 and apps/v1
+kind: ReplicationController and ReplicaSet
+selector: 
+    app: nodeapp and matchExpressions:(or match labels:)
+		  - key: app
+		    operator: In
+		    values:
+		    - "nodeapp"
+ DaemonSet Pod: 
+	- a daemonSet make sure that all or some kubernetes nodes run a copy of a pod
+	- when a new node is added to the cluster, a pod is added to it to match the test of the nodes and when a node is removed from the cluster, the pod will garbage collected
+	- deleting a Daemonset will clean up the pods it created
+	- it is exactly like ReplicaSet but it will not allow replicas
+	- ( if any new node added to the cluster, the daemon will create a pod in that server 
+	example: kubectl get all -n kube-system--> daemonset.apps/kube-proxy and daemonset.apps/weave-net. 
+		So we cannot create multiple replicas for this type of pods, and also we dont neet to create multiple pods)
+--> 	<key>=<value>:<effect>
+	node-role.kubernetes.io/master:NoSchedule
+	here effect will have three values
+		1. No schedule
+		2. PreferNoSchedule
+		3. NoExecute
+What is difference between DaemonSet and deployment?
+A Daemonset will not run more than one replica per node. Another advantage of using a Daemonset is that, if you add a node to the cluster, then the Daemonset will 
+automatically spawn a pod on that node, which a deployment will not do.
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginxds
+  namespace: test-ns
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+
+###	 if we use replicaset/replicationcontroller we cannot update our application with new version. we need to delete previous pods and then we need to apply RC/RS file again and 
+	it will take some DownTime. So for this reason we use Deployment.yaml to update our application without any downtime.
+
+# master will have taints
+####### kubectl get ds(deamonset) kube-proxy -n kube-system -o yaml (used to check yaml file of any pod)
+
+----------------------------------------8 Deployment, rolling updates --------------------------------
+## if we want to deploy changes through jenkins pipeline then we should have .kube/config file in jenkins user's home directory(not root user or ubuntu user and it should be in jenkins server only) 
+# IMAGE_TAG in jenkins to call variable
+# BUILD_NUMBER in jenkins to call variable
+# COMMIT_ID  in jenkins to call variable
+
+DEPLOYMENT:
+	- in kubernetes deployment.yaml is recomanded way to deploy pods or RS, simply because of the advanced features it comes with. if we create pods with deployment then internally replicaset will manage the pods.
+ 	- we create the deployment, deployment will create the ReplicaSet and ReplicaSet will manage the pods.
+	- using deployment we can update pods( ex: rolling updates )
+	  ( when we are updating deployment will create a new ReplicaSet to perform rolling updates)
+	- using deployment we can rollback to previous version
+Deployment straategies:
+	1. Recreate deployment : first it will delete old pods(old version) and then it creates new pods(new version)
+	2. Rolling updates:
+	    a). Rolling deployment:
+		- this is the default strategy 
+		- it will deploy new version but it will not check either latest version pod is stable or not(working fine or not)
+		- first it will create a new pod and then it deletes the old pod. this is how it will perform for remaining all pods.
+##########	- the main drawback of this rolling update is , it cannot identify errors in latest version(latest application). we need to identify manually.
+	--> maxUnavailable=1 means it will deploy one by one
+	--> maxSurge=1 means how many new pods will create 
+	--> minReadySeconds: 30 means after creating pod it will wait 30 seconds to terminate old pod and create another new pod
+apiVersion: apps/v1
+kind: Deployment
+metadata:     			 # this metadata is for ReplicationController
+  name: mavenwebapp
+  namespace: test-ns
+                       			# labels:       #NOT Mandatory to define labels
+spec:          			# this is ReplicationController specification
+  replicas: 2 			# default replica is 1
+  revisionHistoryLimit: 5       		# optional when we want to maintain rollout history
+  strategy:     			# this is the deployment stratefy type either recreate or rolling updates
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%       		# we can give any number instead of percentage
+      maxSurge: 50%
+  minReadySeconds: 30
+  selector:      			# in deployment we should give match labels
+    matchLabels:
+      app: mavenwebapp
+  template:     			# POD template
+    metadata:   			# this metadata for POD
+      name: mavenwebapppod 		# pod name
+      labels:   			# pod labels
+        app: mavenwebapp
+    spec:         			# this is POD specification
+      containers:
+      - name: mavenwebappcontainer
+        image: shahrukh338/java-web-app:31
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mavenwebappsvc
+  namespace: test-ns
+spec:
+  type: NodePort
+  selector:
+    app: mavenwebapp
+  ports:
+  - port: 80
+    targetPort: 8080
+
+###
+-->  kubectl rollout history deployment deployment_name -n test-ns 	(to see the deployment rollout history. the default history is 2 but we can extent in manifest file by using revisionHistoryLimit: 5 )
+-->  kubectl rollout history deployment deployment_name -n test-ns 1	(to see the deployment rollout history of a particular revision)
+--> watch kubectl get pods -n namespace_name		(used to watch what are the changes happening in pod while apply)
+--> kubectl set image deployment dm_name container_name=shahrukh338/java-web-app:31 -n ns_name --record=true   (to change image version with imperatively and --record=true to see the complete command changes)
+--> kubectl rollout undo deployment dm_name -n ns_name 		(dm=deployment. used to rollout to previous version)
+--> kubectl rollout undo deployment dm_name -n ns_name --revision 1(dm=deployment. used to rollout to particular version)
+--> kubectl apply -f mavenwebappdeployment.yaml --record=true 	(used to record whatever changes happening by applying this deployment)
+
+------------------------------------------ 09 Blue Green Deployment, canary Deployment ----------------------------
+
+#### VM --> EndUser request go to DNS---> DNS look-up to identify the IP(external LoadBalancer that can be ELB or nginx proxy) of that LoadBalancer --> request goes to LoadBalancer --> LB will listen PortNumbers --> LB tranfer the request to target servers.
+#### K8S--> EndUser request go to DNS---> DNS look-up to identify the IP(external LoadBalancer that can be ELB or nginx proxy) of that LoadBalancer --> LoadBalancer to--> nodeIP:Port --> kube-proxy will transfer that traffic to Cluster IP --> ClusterIP to PodIPs
+
+#### K8S-Multi-cluster--> by changing the routes in loadbalancer we will do blue-green deployment in multi-cluster
+#### K8s-single-cluster--> by changing service selectors(selectors in service.yaml file) we will do blue-green deployment in multi-cluster
+
+## application servers will communicate with databases in the background to read and write the data. we can also have multiple databases like Primary and secondary for high availability in the databases. (this is called three tier architecture)
+# if it is a downtime then we will route the traffic to some temporary maintanance page, so that users can understand that application is on down.
+## blue green deployment can also possible with own databases. here we just need to transer user traffic to new server(latest version application) with LoadBalancer without downtime
+## we can do Blue-green deployments with single cluster or double clusters.
+
+--> Ingress
+--> IngressController
+
+CANARY DEPLOYMENT:- it will slowly increase the traffic to new verion application. we can define in percentages of user traffic or resources request like cpu(300m), memory(RAM-256Mi), 
+(whenever we are giving resource requests then scheduler will verify the nodes using kubelet either nodes has required cpu and memory or not. kubelet will reserve required resources)
+EX: 	100% --> app 1.0		90%  --> app 1.0		60% --> app 1.0		20% --> app 1.0		   0%  --> app 1.0
+		     		10% -->  app 2.0		40% --> app 2.0		80% --> app 2.0		100% --> app 2.0
+
+POD AutoScaler: it will scale the pods not nodes. we should have required resources in nodes to autoscale the pods.
+	HPA ---> horizontal pod autoscaling(mostly used this only)
+		- it will based on metrics. HPA will take the responsibility when to auto scale pods. 
+		- HPA is responsible for watching Pod container Metrics to increasing and decreasing pods
+		- metric server will contact the kubelet to gather the metrics of the pod containers which are running. when the metrics reached the limit then will increase and decrease the pods based upon requirement.
+
+	VPA  ---> Vertical pod autoscaling
+
+jenkins-cicd to kubernetes integration:
+--> approach 1: -- kubernetes continuos deploy(use old version only 1.0 version)
+--> approach 2: -- create a .kube/config file under jenkins user directory
+------------------------------------------------------10 Metric server --------------------
+HPA and METRIC SERVER:
+HPA-->will communicate with 	METRIC SERVER --> will communicate with kubelet
+--> we should have metric server to get metrics 
+
+* what is heapster ?
+	- heapster is deprecated beacause it is heavy weight(huge cpu and memory)
+* difference between heapster and metric server ?
+	- heapster is deprecated beacause it is heavy weight(huge cpu and memory)
+	- metrics is very light weight
+# we can install metric server using manifest file and also using Helm
+#######  Helm is a package manager for deploying applications in kubernetes
+	- helm is similar to yum, apt ect but these are system package managers. similarly for deploying, upgrading, removing the applications in kubernetes
+RBAC:
+we create one service account with some_name (role)
+- k8s role = aws iam polacy
+- what ever role we create using service account, we will bind(linking) with pod.
+# applications will run in kubernetes but applications doesn't access api server or can't get any  details about the kubernetes cluster or resources
+
+metric server installation file : https://github.com/kubernetes-sigs/metric-server/releases/latest/download/components.yaml
+        - --cert-dir=/tmp
+        - --secure-port=4443
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
+        - --kubelet-insecure-tls 	#(we should add this line)
+
+--> kubectl top nodes
+--> kubectl top pods
+--> kubectl top pods -A
+CPU = 100mi (millicore, it should always in small m)
+
+#################
+--> kubectl run load-generator -i --tty --rm --image=busybox /bin/sh   --> --rm is used to create a temporary container. once we exit, the container get deleted 
+/ # wget -qO- http://hpaclusterservice.default.svc.cluster.local --> it is used to communicate service from container.
+/ # while true; do wget -q -O- http://hpaclusterservice; done --> used to put load server
+
+Horizantal Pod Autoscaling: 
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: dpadeploymentautoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment            	# we can change if it is ReplicationController or ReplicaSet
+    name: dpadeploymen          	## we can change if it is ReplicationController or ReplicaSet name should be given
+  minReplicas: 2		## ### it will be creaated based upon deployment replicas also
+  maxReplicas: 4
+  metrics:
+  - type: Resource      		# we can scale based upon cpu or memory depending upon requirement. if we want we can mention both cpu and memory like this deployment-file
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 40
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 40
+### POD Autoscaling scales based upon resource request not limits.
+### Self managed clusters we cannot scale nodes automatically but when we go to aws, azure we can autoscale nodes too.
+
+## failureThreshold: 3	(When a probe fails, Kubernetes will try failureThreshold times before giving up.)
+-----------------------------------11  -------------------------
+# it is not mandatory to run pod(app) and database in the same server.
+   we can run database server in any other Virtual Machine. we can communicate pod and vm by providing vmIP:Port in the pod we should have networking between pod and VM.
+   if the database is in different vpc then we can create peering between pod cluster vpc and vm vpc or if we using RDS then we can give RDS 
+
+Deployment: it is recomanded for state less applications.
+
+statefulset: this is for deploying and managing stateful applications.
+--> if we want to communicate two pods in the same cluster we use service. if it is database pod then we use ClusterIp service type. why because we dont expose our database to outside
+####### targetPort means containerPort
+
+kubectl delete all --all -n test-ns  --> used to delete all resources in namespace
+
+#################################################################################################################################
+#  if we create pods by using ReplicationController or ReplicaSet, when we are updating pods, we need to delete those RC or RS and recreate again. we cannot apply without downtime  #
+#  but when we are using Deployment we don't need to delete pods, we can update when they are running and rolling updates also possible				              #
+#################################################################################################################################
+
+#### volumes are siblings of containers(my ref only)
+## when a node having issue then kubernetes will be shift those pods in to another nodes. 
+# we use volumes, volume mounts to store data 
+kubernetes uses different Volumes:
+--> container file system lives only as long as containers exists. so when a container terminates and restarts, filesystem changes are lost. 
+	Volume in Kubernetes is very easy to manage
+	it is a directory that gets mounted on a pod 
+k8s supports different types of volumes:
+AwsElasticBlockstore
+AzureDisk
+Azurefile
+emptydir 
+gcepersistentDisk
+gitrepo
+hostPathnfs	(Network File System port no-2049 )
+PersistentVolumeClaim
+Secre
+
+---> NFS(Network File System): 
+ 	- if we want to store in nfs then we need to install nfs (sudo apt install nfs-kernel-server -v)
+	- then we need to create a directory (sudo mkdir -p /mnt/nfs_share) which is accessed by remote clients
+	- so we need to change ownership of the file (sudo chmod 777 /mnt/nfs_share)
+	- sudo chown -R nobody:nogroup /mnt/nfs_share/ 
+
+------12----------------------------
+persistentVolume: it is  a piece of storage(ex: HostPath, NFS, EBS etc). 
+	- we need to have Volumes available in cluster so that pvc  wil be associated with this PV.
+	- PV is not a namespace level
+	- One pv can be allocated to only one pvc. we connot assign one pv to multiple pvc's. this PVC to PV is one to one mapping. even we have storage in PV then also we cannot add  another pvc to to that PV.
+##	## as admin we need to create PersistentVolume.
+Static Volumes: the volumes created by admins(Devops) manually
+
+Dynamic Volumes: the volumes provisioning (created) dynamically using StorageClass.
+
+
+storage class: it is notthing but provisioning(creating) the storage. ex: in manifest if storage class is configured in manifest, the pvc is not found any pv , then the storage class will create a PV dynamically.
+Storage Class is also one kubernetes resource. in self managed kubernetes cluster we won't have any default storage classes but in managed kubernetes clusters like AKS,EKS etc we will have some default storage classes configured. ex: will have EBS provisioner in AWS EKS cluster. EBS volumes will be created by using PVC. ex2: ex: will have both AzureFile and Azure Disc provisioner in Azure AKS cluster. we can mension provisioner name or it will pick from default provitioner.
+
+
+Persistent Volume claim(PVC) --> it is a request for storage(volume) by a k8s user. using PVC we can request (specify) how much storage we need and with which access mode we need. storage class will automatically manage Volumes.
+
+		- this is just a request for a storage, actually Persistentvolume will represent the storage.
+		- PVC is a namespace level
+# pods can't use volumes directly. Pods will use PVC, pvc will get volume for that pod. pvc will work as a bridge between pod and storage.
+# the PersistentVolumeClaims will created by the person who is deploying application in the cluster. they should know how much storage they need, what are the permissions need. thats not a administrator job.
+# how PV and PVC are associated with each other.
+A) that is depends on access mode and Storage
+(for my understanding: if we have 2GB volume and we are requesting 1GB then thats fine but if we have 1GB  PV and we request 2GB PVC then it willl not take.
+for example2: if we have multiple PV and access also matching then pvc will  Pick ramdomly. or else we can use selector in PVC to associate with perticular PV.
+ 
+ACCESSMODES:
+	RWO	--> ReadWriteOnce  --> the volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+	RWX	--> ReadWriteMany  --> the volume can be mounted as read-only by many nodes
+	RDX	--> ReadOnlyMany   --> the volume can be mounted as read-write by many nodes.
+	RWDP	--> ReadWriteOncePod(this is recently introduced by Kubernetes and all volumes may not be support this)
+ReclaimPolicy: when we are deleting application and PVC, then what will happen with associated PV. that is depends on this ReclaimPolicies
+	Retain    -->	if we delete  pvc, the associated PV will not be deleted and Data also not deleted. and the PV wont associate with any other PVC.
+	Recycle  -->	if we delete  pvc, the associated PV also gets Recycled(which means PV will available and it will delete the data(format/reset) in that PV)
+	Delete    -->	if we delete  pvc, the associated PV also gets deled
+#### we cannot delete PV when pods are running by using PVC which is associated with PV
+
+
+
+
+
+
+
+
+
+
+

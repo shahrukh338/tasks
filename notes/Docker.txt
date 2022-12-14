@@ -1,0 +1,186 @@
+competetors for docker :
+	core OS
+	Rocket
+
+Docker? What is Docker?
+Docker is a containerization platform(software) using docker we can build , ship and run our applications as a container.
+Docker with Docker swarm 
+Docker with Kubernetes
+--> in docker swarm there are two service types replicaMode and Global mode
+-->  docker stats (or)  docker stats --no-stream -->used to check container resource usage 
+		- Memory is listed under the MEM USAGE / LIMIT column. This provides a snapshot of how much memory the container is utilizing and what it’s memory limit is.
+		- CPU utilization is listed under the CPU % column.
+		- Network traffic is represented under the NET I/O column. It displays the outgoing and incoming traffic consumption of a container.
+		- Storage utilization is shown under the BLOCK I/O column. This show you the amount of reads and writes a container is peforming to disk.
+
+--> docker system df --> to check system disc usage
+
+-->docker system info 
+
+
+Traditional deployment: Hardware(cpu,memory)--> OperatingSystem --> softwares and libraries--> application
+Virtualization: Hardware --> OS--> HYPERVISOR--> Virtual machine(on top of VM will have OS--> softwares and Libraries--> Applications
+	types:1.Bare metal:this hypervisor doesnt require any OS, we can create vm directly on Hardware
+	      2.Hosted: this requires Os (ex: virtual Box)
+	-- Requires guest OS in every VM
+	-- Neeeds a Hypervidor application to create
+	-- Virtual Machines
+	-- VMs are isolated from rest of the systems
+	-- uses the resources like cpu, memory and storage from host machines
+Container Deployment:- Hardware--> OS --> Containarization(Docker) --> softwares and libraries -->application
+	-- Does not require guest OS sd it shares host OS between continers
+	-- Does not requires Hypervisor
+	-- Docker containers pacages are self-contained and can run application in any environment
+--> container contains everything whichis required to apiece of software(application). It contains application code +its dependencies(software+libraries), configurations, ENV etc.
+
+Kernal: kernal is the interface between software and hardware
+namespaces and cgroups
+userspace
+processID
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Docker is a tool designed to make DevOps (and your life) easier. With Docker, a developer can create, deploy, and run applications in containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and ship it all out as one package.
+
+--> Docker stack: combination of services in docker 
+---> docker aux
+Docker service : This is a cluster management command, and must be executed on a swarm manager node.
+default---> bridge network :if we want to communicate between two containers then we use default bridge network
+for swarm ---> overlay network : 
+Host: which removes network isolation between host and container
+
+we have to change port number when we are creating multiple containers with same image by giving -p
+ docker run -p6000:6379 redis (here 6000 is host port)
+* never install any packege inside a container ex: vim(anything add in docker image)
+* 
+### docker exec -it 3c0dbe7f9e1a /bin/bash(to go inside a running container)
+
+sudo docker info
+
+-------------compose--------------
+version: '3'
+services:
+  # my-app:
+  # image: ${docker-registry}/my-app:1.0
+  # ports:
+  # -  3000:3000
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_PASSWORD=password
+    volumes:
+      - mongo-data:/data/db
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8080:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+volumes:
+  mongo-data:
+    driver: local
+
+--------------docker file---------------
+
+root@ip-172-31-44-210:/masthan# vi Dockerfile
+FROM node:13-alpine
+
+ENV MONGO_DB_USERNAME=admin \
+    MONGO_DB_PWD=password
+
+RUN mkdir -p /home/app
+
+COPY ./app /home/app
+
+# set default dir so that next commands excecutes in /home/app dir
+WORKDIR /home/app
+
+# will excecute npm install in /home/app because of WORKDIR
+RUN npm install
+
+# no need for /home/app/server.js because of WORKDIR
+CMD ["node", "server.js"]
+
+--------------commands--------------
+
+
+    2  docker run -d  redis
+    7  docker stop fb2578c168cf
+    8  docker run -p6000:6379 redis
+   10  docker stop 19288a34b2d8 c34353cd5acd
+   11  docker start 19288a34b2d8 c34353cd5acd
+   15  docker rm 0e4cd604df8f 95359856638f fb2578c168cf
+   18  docker rmi 48dea8832b95
+   19  docker rmi -f 48dea8832b95
+   35  docker rmi 2460522297a1 48dea8832b95 0f698a6badfa
+    9  docker compose -f docker-compose.yaml up
+   10  apt-get install docker-compose
+   11  docker-compose -f docker-compose.yaml up
+   12  vi docker-compose.yaml
+   
+
+
+------------------------------------
+creating instance
+install AWSCLI
+creating a K8s cluster
+make sure the docker image is ready 
+creating a mysql db
+-------------------------------------------------------
+docker network ls
+docker network create -d overlay swarm_ntwk
+docker rm service webapps
+docker rm service --all
+docker node ls
+docker swarm join-token worker
+docker service create --name webapp -p 8080:8080 --network swarm_ntwk --replicas 3 shahrukh338/web-app-docker:17
+docker service scale webapp=3
+docker node rm nodeID 
+docker swarm leave
+
+
+
+docker rmi $(docker images -aq)
+docker service create --name my-service -p 8080:80  shahrukh338/java-web-app:10
+docker service update --image shahrukh338/java-web-app:10 my-service
+docker service rollback SERVICE_NAME
+docker service ls
+docker service scale my-service=3
+docker service rollback my-service
+
+
+
+   84  docker service create --name webapp -p 8086:8080 --network swarm_ntwk --replicas 3 shahrukh338/web-app-docker:{buildnumber}
+   91  docker network create -d overlay swarm_ntwk
+   92  docker service create --name webapp -p 8086:8080 --network swarm_ntwk --replicas 3 shahrukh338/web-app-docker:26
+   93  docker service update --image shahrukh338/java-web-app:27 webapp
+   94  docker rollback service webapp
+   95  docker rollback  webapp
+   96  docker rollback webapp
+   97  docker service rollback webapp
+   98  docker service rm webapps
+   99  docker service rm webapp
+  112  docker service update --image shahrukh338/web-app-docker:27 my-service
+  209  docker service rollback my-service
+  210  docker pull shahrukh338/java-swarm1:4
+  211  docker service update my-service --image shahrukh338/java-swarm1:4
+  212  docker node ls
+  214  docker swarm join-token worker
+  219  docker rmi $(docker images -aq)
+##     docker stats 
+
+
+pipeline steps
+build pipeline
+show latest build version in browser
+rollback 
+scaling service (container)
+updating service with particular version(image) by pulling from github(docker pull shahrukh338/java-swarm1:4)
+deleting a running container which is re-created by cluster
+
+

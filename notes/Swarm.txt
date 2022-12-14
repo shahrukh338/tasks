@@ -1,0 +1,82 @@
+1.aws and kubernetes autoscaling
+
+	In AWS we take our application as a image and just it will create a complete new application and instance
+ 		--but in k8s we can autoscale particular service which having huge customer traffic
+	we have to give % of Load to create a new instance or application
+		-- but in k8s it will be managed by cloud providers
+	in aws we cant communicate server to server, and we can just give the port numbers which can be open
+		-- but in kubernetes the servers can communicate with another easily and we have multiple services to expose our application
+	if we want to implement any changes in application then we need to stop the service and again take that instance as a backup image then we can again start the application
+		--but in k8s the changes will be reflected instantly
+	it is application level auto scaling but aws is resource level auto scaling
+	
+
+2. kubernetes approch
+
+	Fast scalability
+	visibilities(monitoring containeraized applications)
+	rolling updates
+	statefullset deployent
+	cost optimization (k8s is open source and aws is managed service)
+	multi-cloud migration flexibility
+	no down time
+	Handles more microservices
+	Maintains and monitors the container site
+	Rolling updates and rolling back 
+	statefullset deployent
+	It can be used on cloud and data center 
+
+3. Rollback to our previous version 
+
+	
+4. need to take aproval from stakeholder via email job before deployment 
+
+
+
+docker network ls
+docker network create -d overlay swarm_ntwk
+docker rm service webapps
+docker rm service --all
+docker node ls
+docker swarm join-token worker
+docker service create --name webapp -p 8080:8080 --network swarm_ntwk --replicas 3 shahrukh338/web-app-docker:17
+docker service scale webapp=3
+docker node rm nodeID 
+docker swarm leave
+docker run -it -d -p 8083:8080 --name webapps shahrukh338/web-app-docker:21
+
+
+docker network ls
+docker network create -d overlay swarm_ntwk
+docker rm service webapps
+docker rm service --all
+docker node ls
+docker swarm join-token worker
+docker service create --name webapp -p 8080:8080 --network swarm_ntwk --replicas 3 shahrukh338/web-app-docker:17
+docker service scale webapp=3
+docker node rm nodeID 
+docker swarm leave
+
+docker service create --name my-service -p 8080:80 nginx:alpine
+docker service update --image shahrukh338/java-web-app:27 my-service 
+docker service rollback SERVICENAME
+docker service ls
+docker service update --replicas=3 my-service
+docker service rollback my-service
+docker service update --image shahrukh338/java-web-app:10 webapp
+
+docker service ps my-service
+---------------------------------------------------------------------------------
+
+
+
+
+
+docker network create swarm_ntwk
+docker service create --name webapp -p 8086:8080 --network swarm_ntwk --replicas 3 shahrukh338/java-web-app:26
+
+   docker network create -d overlay swarm_ntwk
+   docker service create --name my-service -p 8086:8080 --network swarm_ntwk --replicas 3 shahrukh338/java-web-app:30
+   docker service update --image shahrukh338/java-web-app:27 webapp
+   docker service rollback webapp
+   docker service rm webapp

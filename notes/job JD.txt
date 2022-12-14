@@ -1,0 +1,17 @@
+Job Jd:
+--> infrastructure and networking
+--> Docker
+--> Kubsernetes
+--> AWS services
+--> configuring and maintaining/supporting a large scale Docker based environment using kubernetes.
+--> monitoring tools like Grafana, Prometheus
+--> administration using Kubernetes, Docker and Cloud-native technologies.
+--> Basic knowledge on Linux system administration
+
+
+--> networking
+--> docker
+--> Kubernetes
+--> aws
+--> prometheous
+--> Grafana

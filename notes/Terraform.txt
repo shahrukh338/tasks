@@ -1,0 +1,70 @@
+Terraform--(IAC)
+main approches
+	1.repeatability(ex configurations)
+	2.auditability(ex changes visibility and tracking )
+	3.collabaration(with any tool like github)
+
+config file
+
+Software Development Life Cycle:
+requirements(docker,k8s,vm etc)--> design(os, platform etc)--> implementation(IAC)--> Infra Testing-->Deployment--> maintainance(if anything happened wrong then we do changes with terraform)
+
+-->  Terraform is Cli tool we dont have GUI for Terraform
+-->* Terraform is the Declarative IAC
+-->  it always make sure that what ever we declared configurations it will check either it is running or not
+	if we delete statefile then it will delete VM also
+statefile(it is like database, what ever we create resources, it will stored data in this statefile)
+	statefile and configfile should always match
+-->
+
+
+
+What is Terraform?
+-Terraform is a tool for building ,changing,Versioning infrastructure safely and efficiently
+-Enables application software best practices to infrastructure
+-Compatible with many clouds and services
+-Terraform is IaC( Infrastructure as Code)
+
+Categories in infa as a code.
+1)Ad hoc script
+2) config management tools
+3)server templating tools
+4)orchestration tools
+5)Provisioning tools
+5.1) Declarative - we say i want a EC2,Load balance ,etc
+5.2) Imperitive - we say the system what we want to happen and what sequence
+
+cloud specific vs cloud Agnostics
+
+Cloud specific:
+Cloud Formation - Aws own service for IaC it can be accessable only in aws,and only allow provisioning in only aws cloud
+
+Cloud agnostics: 
+It can be used to access any cloud provider
+
+Terraform installation:
+59  sudo mkdir terra
+   60  ls
+   61  cd terra/
+   62  ls
+   63  sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+   64  wget -O- https://apt.releases.hashicorp.com/gpg |     gpg --dearmor |     sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+   65  xterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256colorxterm-256color
+   66  gpg --no-default-keyring     --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg     --fingerprint
+   67  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+    https://apt.releases.hashicorp.com $(lsb_release -cs) main" |     sudo tee /etc/apt/sources.list.d/hashicorp.list
+   68  sudo apt update
+   69  sudo apt-get install terraform
+   70  ls
+   71  cd
+   72  terraform --version
+   79  sudo apt  install awscli
+   83  aws configure
+    IAM credentials
+
+
+   
+elastic beanstalk-- containers and web applications
+jenkins -- code pipeline
+ansible and terraform --Cloude formation
+

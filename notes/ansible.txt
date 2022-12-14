@@ -1,0 +1,493 @@
+git-github--> c language
+maven-->java
+tomcat -- Java
+sonarkube-- Java
+nexus -- java
+jenkins -- Java
+ansible -- Python
+
+jenkins --> 4 or 5 servers
+linux servers --> 15+ servers
+ansible--> 1 server
+
+## LAMP stands for Linux, Apache, MySQL and PHP
+## docker ansible and k8s we use YAML language
+## if it is a tomcat server we use webapp to deploy and in http server /var/wwww/html/
+------------------------------------------------------------------------------------------------------------------------------------
+
+--> ansible is an OpenSource, cofiguration management tool which is provided by Redhat
+	installing/uninstalling softwares
+	creating/deleting users
+	copy/move/delete the files or directories and changing the permissions
+	start/stop/restart the services
+--> it is most important for linux admins
+--> # in ansible in the place of sudo we use become(-b) (become=true)
+--> most of times ansible installed in linux servers and host machine can be any operating system(windows or mac)
+--> mostly ansible install in one server only
+--> ansible can use for every environment(test, prepod, production etc)
+--> we give -v or -vv or -vvv flags to check what happening background
+--> # default ansible configuration path in ansible -- /etc/ansible/ansible.cfg
+--> # what ever configurations we are doing those will be get deployed into slaves only. if we want to make those configurations in master server too then we need to give localhost in inventory file
+		sudo passwd ansible (set password for ansible user)
+		ssh-copy-id ansible@localhost -y
+		vi /etc/ansible/hosts and add localhost in the group
+--> # when we are doing any configurations, if that package is already exists then it will change as nothing to change
+--> # we can connect host servers in 3 different ways they are 1)ssh 2)pem 3)username and password
+		
+# Public cloud means anyone can access from anywhere
+# private cloud means can connect within the network
+
+------------------------------------------Installation-------------------------------------------------------------
+
+ 	1. create one master and multiple host servers(ec2)
+	2. switch as root and create ansible user and provide sudo access in all servers
+	  - sudo adduser ansible
+	  - passwd ansible (in client servers to set password)
+	  - visudo (at bottom  -- ansible ALL=(ALL) NOPASSWD: ALL)--> for all master and all nodes
+	  - make the necessary changes in sshd_config file (/etc/ssh/sshd_config) to enable passwordless authentication for all servers
+		vi /etc/ssh/sshd_config(  passwordless authentication yes)
+		service sshd restart
+	3.install ansible in master
+	  switch to ansible user (su ansible)
+	  install python software(sudo apt install python3)
+	  update python alternatives( sudo alternatives -set python /usr/bin/python3)
+	  python --version
+	  install EPEL Repository( sudo apt install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+	  sudo apt install ansible -y
+	  ansible --version
+	4.Generate SSH keys, copy SSH key(ansible server)
+	  - now generate SSH key in Ansible server(master)
+		sudo su ansible
+		ssh-keygen --> enter --> enter -->enter
+	 - copy the host server as an ansible user
+	   repeate the below command by updating Host ip for all host servers
+		ssh-copy-id ansible@<host/slaveIp> -y (in master server with all slaveIps and give slave password)
+	5. add host ips in inventory file 
+		sudo vi /etc/ansible/hosts (at bottom add slave ip addresses and save and quite)
+
+	6. checking all slave(host) servers are working or not
+	  ansible all -m ping
+
+--------------------------------------------------------------------MODULES-------------------------------------------------------------
+Core Modules: ansible-doc -l (to list all default modules)(docs.ansible.com)
+# changed means did configurations changes
+# success means the package or file already exist in server
+  --> yum module for installing and uninstalling packages
+	-- ansible all -b -m yum -a "name=vim" (to deploy in all servers)(-b means become and -a means attribute)
+	-- ansible slaveIp -b -m yum -a "name=vim" (to deploy only in particular server)
+
+   --> when we are going to use shell commands then we give shell module
+	-- ansible all/ip/groupname -m shell -a "uptime" (to check uptime)
+	-- ansible all/ip/groupname -m shell -a "date" (to check date)
+	-- ansible all/ip/groupname -m shell -a "cat /etc/*release"
+	-- ansible all -m shell -a "uname"
+	-- ansible all -m shell -a "df -h"
+  --> when we want to install or uninstall packages
+	-- ansible all/ip/groupname -b -m yum -a name="httpd" 
+	-- ansible all -b -m yum -a name="httpd" state=present
+	-- ansible all -b -m yum -a name="httpd" state=ansent
+  --> service module
+	-- ansible all/ip/groupname -b -m service -a name="httpd state=started" (to start httpd service)
+	-- ansible all -b -m service -a name="httpd state=absent" (to remove httpd service)
+
+  --> copy module
+	-- ansible all/ip/groupname -m -b copy -a "src=filename.txt dest=/tmp/filename.txt"
+
+  --> setup module (to get all the details about server)
+	-- ansible all/ip/groupname -m setup (for ex: if we want to know the server provider name either redhat or centos to use yum or commands)
+	-- ansible locathost -m setup
+  --> template module :instead of copy module, we use "template" module is used to call variables
+  --> debug module 
+
+---------------------------------------Groups classification--------------------------
+Groups: based on requirement we have to classify groups in invertory files. we can keep slave server in multiple groups also.
+[appservers]
+1.2.3.4
+1.2.3.4
+1.2.3.4
+
+[dbservers]
+1.2.3.4
+1.2.3.4
+1.2.3.4
+
+---------------------------------------------------Inventory---------------------------------------------------------------
+
+Inventory: An inventory hosts file is used to list and group our servers. default path for host inventory is /etc/ansible/hosts
+	# without giving any path it will pick default inventory file
+	# by giving path it will pick custom inventory file from that path
+		ansible -i /etc/ansible/flipkart all -m ping (this is the  recomanded way in realtime)
+
+	# if we want to change custom inventory as permanant default path
+		export ANSIBLE_HOSTS=/root/custom_ansible_hosts  (but this is not recomanded in work environment)
+
+	we have 2 types of  inventories
+	1.static Host inventory
+	2.dynamic Host inventory
+
+------------------------------------------------------PLAYBOOKS---------------------------------------
+
+Playbooks--> it contains sequence of tasks
+# indentation is very important in yaml and dont use tab, only use spacebar
+# playbooks always starts with ---
+# ansible-playbook filename.yaml --check (--check means dry Run which means before excecuting we can check either it is performing good or not)
+# if we want to check playbook syntax is correct or not we can check with below command 
+	ansible-playbook filename.yaml --syntax-check
+# ansible playbook excecution command
+	ansible-playbook filename.yaml
+# playbooks can contians N number of Plays
+# each play can contains N nuber of tasks
+
+		---
+		- hosts: all			(deploy all these configurations either all/ip/groupname)
+		  tasks: 
+		   - name: ping servers  	(we can give any name here)
+		     ping:		 	(exactly under tasks name we should give module name)
+		...
+
+
+		---
+		- hosts: dbservers
+		  become: true			(in ansible in the place of sudo we use become(-b) (become=true))
+		  tasks:
+		   - name: creating a user
+		     file:
+		      path: /tmp/masthan.sh
+		      mode: 0777
+		      owner: ec2-user
+		      state: touch
+		...
+
+		---
+		- hosts: all
+		  become: true
+		  vars:							(vars is used to call variables from other files in the same repository(folder))
+		    employeeName: Masthanvali
+		    location: Vijayawada				(we can call variable directly without hardcore like this with following command --> ansible-playbook filename.yaml --extra-vars employeeName=shahrukh)
+		  tasks: 
+		   - name: Install apache HTTP servers
+		     yum:						(after module next we should give one space indantation)
+		      name: httpd
+		      state: latest
+		   - name:
+		     copy:(template)					(instead of copy module, we use template module is used to call variables)
+		      src: index.html
+		      dest: /var/www/html/index.html
+		   - name: start the Apache http server  		
+		     service:						(for staring server we use service module)
+		      name:http
+		      state: started					
+		      enable: true					(if we want to enable the task then we use enable: true)
+
+		...
+
+
+
+-------------------------------------------------------------------------Handlers---------------------------------------------------------------------------
+
+### Handlers: are the special tasks which will run at the end of the play if notified by the another task. if we want we can one hangler multiple times
+
+Variables: create a variable.yaml file and from there we can call variables in playbooks without doing hardcore
+
+
+Group Variables:create a yaml file in /etc/ansible/group_vars
+appserver.yml
+dbserver.yml
+webserver.yml
+
+loops-->
+conditional-->
+Roles:
+Dynamic inventory:
+ansible galaxy:
+
+---------------------------------------------------------------------------------
+Ansible:
+	Ansible is an open-source platform used for automation and for various operations such as configuration management, application deployment, 
+	task automation, and IT orchestration. Ansible is easy to set up, and it is efficient, reliable, and powerful. It runs on Linux, Mac, or BSD. 
+	Apart from the free version, it has an enterprise edition called ‘Ansible Tower.’
+
+Ansible Tower:
+	Ansible Tower is a more enterprise-oriented version of Ansible. It is a web-based management system with a very simple user interface that gives a 
+	dashboard with all of the status summaries of all the hosts, allowing rapid deployments and monitoring of all configurations.
+
+Ansible Galaxy: 
+	Ansible Galaxy is essentially a large public repository of Ansible roles. Roles ship with READMEs detailing the role's use and available variables. 
+	Galaxy contains a large number of roles that are constantly evolving and increasing. Galaxy can use git to add other role sources, such as GitHub
+
+
+
+
+
+
+forks--> Ansible uses batches for task execution, which are controlled by a parameter called forks . The default value for forks is 5, which means Ansible 
+	executes a task on the first five hosts, waits for the task to complete, and then takes the next batch of five hosts, and so on.26-Jan-2022
+
+	
+
+Ad-hock commands: Ad hoc commands are commands which can be run individually to perform quick functions. These commands need not be performed later.
+                  For example, you have to reboot all your company servers. For this, you will run the Adhoc commands from ‘/usr/bin/ansible’.
+                  These ad-hoc commands are not used for configuration management and deployment, because these commands are of one time usage.
+
+ 
+Roles:- In Ansible, the role is the primary mechanism for breaking a playbook into multiple files.
+        Roles are not playbooks. Roles are small functionality which can be independently used but have to be used within playbooks. There is no way to directly execute a role.
+	combination of tasks, variables, files, templates
+	default roles will be in roles/default
+	ansible-galaxy init <<ansibleRole>>
+Directory structure:	defaults
+	 		--main.yaml
+			file
+			handlers
+			 --main.yaml
+			tasks
+		  	--main.yaml
+			templets
+			vars
+			  main.yaml
+ex playbook with roles:
+---
+- hosts: all
+  become: true
+  roles:
+   - apacheHTTPserver
+...
+
+
+Variables: Variable in playbooks are very similar to using variables in any programming language like containers for storing data values. 
+	   It helps you to use and assign a value to a variable and use that anywhere in the playbook. 
+	   One can put conditions around the value of the variables and accordingly use them in the playbook.
+
+--> ansible usecases:
+	configuration tasks with ansible:
+	adding and delete users
+	copying, moving and deleting files and directories
+	adding new files and directories
+	reboot hosts
+	to start,stop,restart a service
+	to check if a package installed and update it
+	(dh -h) checking resources usage
+	changing rwx permissions to users or directories
+
+File Transfer
+* SCP: (Secure Copy Protocol) lots of files in parallel on multiple machines.
+
+* Transferring file to many servers/machines
+$ Ansible abc -m copy -a "src = /etc/yum.conf dest = /tmp/yum.conf"
+
+* Creating new directory
+$ Ansible abc -m file -a "dest = /path/user1/new mode = 777 owner = user1 group = user1 state = directory" 
+
+* Deleting whole directory and files
+$ Ansible abc -m file -a "dest = /path/user1/new state = absent"
+
+* The Ad-hoc commands are available for yum and apt. Following are some Ad-hoc commands using yum.
+* The following command checks if yum package is installed or not, but does not update it.
+$ Ansible abc -m yum -a "name = demo-tomcat-1 state = present"
+
+* The following command check the package is not installed.
+$ Ansible abc -m yum -a "name = demo-tomcat-1 state = absent" 
+
+* The following command checks the latest version of package is installed.
+$ Ansible abc -m yum -a "name = demo-tomcat-1 state = latest" 
+
+* Facts can be used for implementing conditional statements in playbook. You can find adhoc information of all your facts through the following Ad-hoc command −
+$ Ansible all -m setup 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+host file (/etc/ansible/hosts):- In ansible, host files are those files that are used for storing information about remote nodes information, which we need to manage. 
+This file can be placed anywhere but its location needs to be set up either in a configuration file or give on the command line. This is one of those important files 
+without which you will be doing a lot of extra work to tackle it. Every time, ansible runs a playbook, it checks for the listed hosts in the host’s file and fetches 
+the available information against those hosts, then use this information to make connection, login and execute tasks on remote hosts.
+
+--> What is the difference between the host file and an inventory file in ansible?
+Actually both are same. hosts file is the default inventory file with this default name in ansible after it's installation. We can have multiple inventory files 
+(with any name, can also be a .ini file) and refer to the adhoc commands with -i attribute.
+
+
+--> used for:
+1. agentless server(we have to install agent in puppet/chef)
+2. ssh keys 
+	if master and node server both are linux then we use ssh
+	if master is linux and node is windows then use winrm
+3.ansible follows push mechanism(puppet/chef are pull based mechanism)
+4.uses yaml language
+
+
+1.passwdless authrntication between master and slave (add user in both master & slavr servers)
+  --> sudo adduser master --> sudo adduser client
+ 
+2.sshd config changes(in both servers)
+ --> sudo vi /etc/ssh/sshd_config 
+    |
+    --->passwordless authentication yes
+3. sudo ssh service restart (in both servers)
+4.sudo visudo (in both servers)
+  --> master ALL=(ALL:ALL) NOPASSWD: ALL  -->client ALL=(ALL:ALL) NOPASSWD: ALL
+      ctl+x, cntl+y, enter
+5. now change to created users in both servers
+   --> sudo su master   --> sudo su client
+
+6. (in master)
+  --> cd / --> ssh-keygen --> enter  --> enter  --> enter
+  --> ls -la -->cd /home/.ssh --> cat id-rsa.pub(copy this public key to paste in slave)
+
+7. (in client servers only)
+  --> cd  -->sudo mkdir .ssh -->cd .ssh -->sudo vi autherized_keys(paste the public key and file name should be like this only)
+
+8. (in master only)
+  -->ssh clientubuntu@ip
+
+
+learned Ansible overview and installed ansible in ec2 server
+configured passwordless authentication between servers to implement configurations in worker servers
+
+
+
+
+--------------------------------- ansible playbooks ---------------------------------
+
+a student record:
+--- #Optional YAML start syntax 
+james: 
+   name: james john 
+   rollNo: 34 
+   div: B 
+   sex: male 
+… #Optional YAML end syntax 
+
+
+or
+
+James: {name: james john, rollNo: 34, div: B, sex: male}
+
+
+----------------------------
+TO REPRESENT LIST:
+---
+countries:  
+   - America 
+   - China 
+   - Canada 
+   - Iceland 
+…
+
+Or
+Countries: [‘America’, ‘China’, ‘Canada’, ‘Iceland’] 
+
+-------------------------------To list inside directory------
+---  
+james: 
+   name: james john 
+   rollNo: 34 
+   div: B 
+   sex: male 
+   likes: 
+      - maths 
+      - physics 
+      - english 
+… 
+ -----------------list of directories--------
+---  
+- james: 
+   name: james john 
+   rollNo: 34 
+      div: B 
+   sex: male 
+   likes: 
+      - maths 
+      - physics 
+      - english 
+
+- robert: 
+      name: robert richardson 
+      rollNo: 53 
+      div: B 
+      sex: male 
+   likes: 
+      - biology 
+      - chemistry 
+…  
+
+------------------------------------
+
+---  
+- james: 
+   name: james john 
+   rollNo: 34 
+   div: B 
+   sex: male 
+   likes: 
+      - maths 
+      - physics 
+      - english 
+   
+   result: 
+      maths: 87 
+      chemistry: 45 
+      biology: 56 
+      physics: 70 
+      english: 80 
+   
+   passed: TRUE 
+   
+   messageIncludeNewLines: | 
+      Congratulation!! 
+      You passed with 79% 
+   
+   messageExcludeNewLines: > 
+      Congratulation!! 
+      You passed with 79% 
+
+
+----------------------------------------
+
+
+
+---
+- masthan:
+   name: masthan vali shaik
+   rollNo: 38
+   div: A
+   likes:
+      - maths 
+      - physics
+      -chemistry
+- robert:
+     name: somename
+     rollNo: 00
+     div: B
+     sex: male
+     likes: 
+       - english
+       - biology
+     result:
+        maths: 87
+        chemistry: 80
+        physics: 77
+
+     pasesed: TRUE
+
+      
+# playbook.yaml should starts with ---
+# indentation 3 spaces
+
+
+
+--------------------------- ansible paths ---------------
+# whenever working on ansible then we should create a saparate directory for every project
+ubuntu$myproduction/(path)
+.cfg
+inventory files
+site.yaml(main yaml file and works as a master playbook)
+file.yaml(redirect to roles) 
+.ansible/roles/nginx(path)
+group-vars
+host-vars
+
+------------------
+navallur omr fs
+vr mall- koyambed
+
+     

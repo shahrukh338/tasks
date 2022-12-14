@@ -1,0 +1,29 @@
+managing users, groups and permissions
+
+
+chown 
+chmod
+read-4 write-2 excecute-1
+
+
+tool for mysql: Mysql workbench
+we have to create scema
+then will create a table
+then we have insert values(for whatever the collam we are creating in the table)
+--> show databases
+--> select*from tablename;
+
+-if we need to update anything 
+UPDATE TABLENAME
+SET columnname(first-name)= 'updating-data'
+WHERE column-name(worker-ID) = 5;
+
+
+
+minikube:
+
+    1  minikube version
+    2  minikube start
+    3  kubectl version
+    4  kubectl cluster-info
+    5  kubectl get nodes

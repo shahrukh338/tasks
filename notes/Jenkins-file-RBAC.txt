@@ -1,0 +1,54 @@
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/java-web-app:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/java-web-app:${buildnumber}"
+    }
+    stage("Deploying application as Docker container in deployment server"){
+        
+        sshagent(['docker_test_server_ssh']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@54.241.71.150 docker rm -f webappcontainer || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@54.241.71.150 docker run -d -p 8082:8080 --name webappcontainer shahrukh338/java-web-app:${buildnumber}"
+       }
+         
+    }
+}
+
+MANAGE ROLES:
+global roles: it will assign access to overall jenkins server
+item roles: it is for particular specified job only. it can override global roles.this is having more access than global roles
+	role to add -- id(name) for particular role
+	pattern 	  -- perticular job name
+
+
+ASSIGN ROLES: 
+Global Roles: giving roles to the users which are specified(created) in MANAGE ROLES
+	user/group to add -- the user/group name which we are created in users session
+Item Roles:  by using this we will give particular user to particular job. so he can only access specified jobs. a user/group can have multiple jobs access permission.
+	user/group to add -- here we add  user/group who item Roles
+
+
+
+-------------------------------------
+
+--> create a user in manage users 
+--> manage roles in Manage and assign roles
+	- go to ItemRoles and create a Role with job name
+       - then Go to Assign Roles
+	- in Global roles add user which we created in manage users
+	- then In ItemRoles add user and give permissions

@@ -1,0 +1,14 @@
+--> used to increase History size
+	export HISTSIZE=8999
+	export HISTFILESIZE=9999
+--> used to check resourses
+	df -h 
+	df -lk
+	df --help
+in k8s 	watch top pods
+	kubectl top pods -A or nodes -A
+--> used to communication
+k8s 	curl -v 10.111.254.168(ip) --> used to access other pods in same cluster
+
+--> used to check which services are running with which port numbers
+	sudo netstat -tunlp

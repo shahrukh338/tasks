@@ -1,0 +1,10 @@
+iq server installation in linux server
+
+
+
+create user 
+manage roles only overall read
+item role --> only job read
+assign roles to that user
+
+change user name in pipeline script

@@ -1,0 +1,105 @@
+intellipaat
+
+
+
+--> SSL : secure sockets layer
+--> pom.xml : project object management ( used to define dependencies in Maven)
+--> What is DevOps?
+  DevOps can’t be referred as a tool; it is a collaborative work culture that combines development and operations teams for continuous development, 
+continuous testing, continuous integration, continuous deployment, and continuous monitoring.
+
+--> What is the role of AWS in DevOps?
+Role in DevOps
+Flexible services: AWS provides us with ready-to-use resources for implementation.
+Scaling purpose: We can deploy thousands of machines on AWS, depending on the requirement.
+Automation: AWS helps us automate tasks using various services.
+Security: Using its security options (IAM), we can secure our deployments and builds.
+
+--> What is the difference between continuous deployment and continuous delivery?
+in continuous deployment there is some manual intreventions required like manager approvals and where as in continuous delivery it will be automatic.
+
+--> What are the advantages of Docker over virtual machines?
+Below are the differences in multiple criteria that show why Docker has advantages over virtual machines.
+
+1.Memory Space – In terms of memory, Docker occupies lesser space than a virtual machine.
+2.Boot-up Time – Docker has a shorter boot-up time than a virtual machine.
+3.Performance – Docker containers show better performance as they are hosted in a single Docker engine, whereas, performance is unstable if 
+	        multiple virtual machines are run.
+4.Scaling – Docker is easy to scale up compared to virtual machines.
+5.Efficiency – The efficiency of docker is higher, which is an advantage over virtual machines.
+6.Portability – Docker doesn’t have the same cross-platform compatibility issues with porting as virtual machines do.
+7.Space Allocation – Data volumes can be shared and used repeatedly across multiple containers in Docker, unlike virtual machines that cannot share data volumes.
+
+--> What are the benefits of Ansible?
+Ansible is an open-source configuration management tool that helps us in the following:
+1.Automating tasks
+2.Managing configurations
+3.Deploying applications
+4.Efficiency
+
+--> What is Ansible galaxy?
+Ansible Galaxy is essentially a large public repository of Ansible roles. Roles ship with READMEs detailing the role's use 
+and available variables. Galaxy contains a large number of roles that are constantly evolving and increasing.
+
+--> What is Ansible tower?
+  Ansible Tower is the enterprise version of Ansible, and it helps organizations and teams scale quickly and effectively. There is a cost associated 
+with adopting it, installing it, and getting the software up and running in your environments.
+
+--> core operations of DevOps.
+Core operations of DevOps include:
+
+	1.Development
+	2.Version Control
+	3.Testing
+	4.Integration
+	5.Deployment
+	6.Delivery
+	7.Configuration
+	8.Monitoring
+	9.Feedback
+
+--> Advantages of DevOps
+Technical benefits:
+	* Continuous software delivery
+	* Less complex problems to fix
+	* Faster bug resolution
+
+Business benefits:
+	* Faster delivery of features for customer satisfaction
+	* More stable operating environments
+	* More time available to add product value
+
+--> What is the use of SSH?
+  SSH stands for Secure Shell and is an administrative protocol that lets users have access and control the 
+remote servers over the Internet to work using the command line.
+
+--> Can one consider DevOps as an Agile methodology?
+DevOps can be considered as complementary to the Agile methodology but not completely similar.
+
+--> Can you tell me the purpose of SSH?
+  SSH is nothing but a secure shell that allows users to login with a secure and encrypted mechanism into remote computers. It is used for encrypted 
+communications between two hosts on an unsafe network. It supports tunneling, forwarding TCP, and also transferring files.
+
+--> Can you tell me why I should use Nagios?
+To plan for infrastructure upgrades before the outdated systems fail
+To respond to issues quickly
+To fix problems automatically when detected
+To coordinate with the responses from the technical team
+To ensure that the organization’s service-level agreements with the clients are being met
+To make sure that the IT infrastructure outages have only a minimal effect on the organization’s net income
+To monitor the entire infrastructure and business processes
+
+--> What is kubectl?
+kubectl is a command-line interface for running commands against Kubernetes clusters
+
+-->  What is Blue/Green Deployment Pattern?
+  A blue-green pattern is a type of continuous deployment, application release pattern which focuses on gradually transferring the user traffic from a 
+ previously working version of the software or service to an almost identical new release - both versions running on production.
+The blue environment would indicate the old version of the application whereas the green environment would be the new version.
+The production traffic would be moved gradually from blue to green environment and once it is fully transferred, 
+the blue environment is kept on hold just in case of rollback necessity.
+
+
+* git log --oneline
+
+ansible master and slave concept and ansible playbooks and ad-hock commands

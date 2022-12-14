@@ -1,0 +1,195 @@
+what is shell ?
+	shell is a program, it will takes the commands whatever user is typing and will gives to the OS to excecute.
+	shell is an interface between user and the OS
+	shell script is nothing but writing linux commands in order
+--> $(dollar) will give you the variable value
+# Bash is the default shell in all advanced linux Os
+# sh is the default shell for old OS
+--> cat /etc/shells (to check supporting shells by the operating system)
+if we want to change one shell to another
+-->/bin/sh
+--> /bin/bash
+--> /bin/csh
+--> /bin/sh
+ 
+if we want to check current shell
+--> echo $0
+--> ps -p $$
+--> echo $SHELL
+
+what is shell scripting:
+a shell script is a file contianing a series of commands. The shell reads this file and carries out the commands as through they have been entered directly on the command line.
+normally the shell scripts has the file extension .sh but it is not mandatory
+if any command is failing in between the script, only that command get terminated and remaining program will be excecuted.
+
+shell scripting usecases:
+--> to automate regular jobs
+--> used for repetitive tasks
+--> Data Backup
+
+
+relations databases: in this db the data is stored in the structured format in Rows and columns and tables
+	oracle
+	mysql(open source)
+	postgre SQL(open source)
+	MS sql server 
+	db2 from IBM
+No sql database: there is no structured format in this database.the data is stored in the JSON(key value pair) format. in the documents the data is stored. here we dont have rows and columns and tables.
+	mongodb
+	cloudant
+------------------------------------
+shell scripts
+	dbbackup.sh
+	serverresourcesmonitoring.sh(free, df, top, hostname, ifconfig etc commands)
+	deploy.sh(steps to deploy web app in tomcat)
+	cleanup.sh
+-------------------------------
+#!/bin/bash  --> shebang line--> this line will represent which shell should we use. if we dont mention this line the system will take default shell
+we can run shell script in different ways
+	./hello.sh
+	. hello.sh
+	sh hello.sh
+	bash hello.sh   etc
+# after writing shell script we should give excecution permissions
+	chmod +x hello.sh
+if we want to run as a different user then we need to give excecution permission 
+	chmod u+x hello.sh
+------------------
+### if we want to run shell in debug mode 
+	sh -x hello.sh (it will show command and output we can identify which command having errors)
+-----------------------------------------------------------
+Variables: variable is a memory location where we can store the data.
+there are two types of variables
+	1.system defined variable : this variables are created by system and values are assigned by default
+		to check all system defined variables command
+			--> env
+			--> printenv
+# if we want to check the variable value in linux then --> echo $variable_name(SHELL)
+# we can change system variable values --> for ec2-user --> .bash_profile --> then add line ex: export HISTSIZE=500
+				      --> for all users --> /etc/profile --> then add line ex:  export HISTSIZE=500
+	2.user defined variables: as a user we can create a variable based on requirement and we can assign values
+# in shell scripting we dont give datatypes we directly assign values.
+# in variable and value assign shouldnot give spaces 
+	ex a=10 
+	   b=masthan
+	   c=20.5
+# if we give a=38 then it will overwrite and saves latest value
+# system defined variables are always in uppercase letters(HISTSIZE)
+# for best practice when we are creating user defined variables in lowercase latters(a b c)
+# we can assign system defined variable value to user defined variabe (ex uname=$USER)
+# there is no command to check user defined variables, if we want to check then we should go to that file and we should see, one variable can call from any file 		
+
+Declaring the variables: just intializinng the variables. here int is a data type and a b c are variable names.
+int a;
+int b;
+int c;
+
+Intialisation the vars: intializing variables and assigning the values
+int a = 10;
+int b = 20;
+int c = 30;
+
+
+--------------------------------------- Command Line Arguments ------------------------
+Command Line Arguments:During shell script execution, passing the values through command prompt is called command line arguments
+		Ex:while running a script, we can specify the command line arguments as "sh filename.sh arg1 arg2 arg3"
+# we can pass N number of arguments, there is no limitation
+# each argument is saparated  by space
+$1  if we want to display --> echo $1
+$2  if we want to display --> echo $2
+$3  if we want to display --> echo $3
+# if we have more than one argument then we should give --> echo ${10}
+
+echo $* --> all arguments as a one string
+echo $@ --> each arg as a one, one string
+
+error codes:
+0 --> success5
+1 - Catchall for general errors
+2 - Misuse of shell builtins (according to Bash documentation)
+126 - Command invoked cannot execute
+127 - “command not found”
+128 - Invalid argument to exit
+128+n - Fatal error signal “n”
+130 - Script terminated by Control-C
+255\* - Exit status out of range
+127 -->standard error for command not found
+
+---------------------------------------------------------------------------
+STRING: zero or more characters enclosed in a single or dounle quotes are called string
+employeename="masthan"
+location:'Vijayawada'
+
+string_var="Hi Test, my name masthan vali, working in Hinduja"
+echo $string_var
+echo ${string_var} 
+# we can call variable with these two commands but second command is best practice
+echo ${#string_var} --> to see lenth
+echo ${string_var} -->Hi Test, my name masthan vali, working in Hinduja
+echo ${string_var:15} --> it will print from 15th word in this file
+echo ${string_var:15:10} --> it will give between 15-10 between names
+echo ${string_var: -10} --> it will print only last 10 characters
+---------------------------------------------
+arithmatic expressions:
+# we should give spaces between numbers and oparators
+expr 2 + 3
+expr 2 - 3
+expr 2 / 3
+expr 2 * 3
+expr 2 % 3
+-----> we use command line arguments
+expr $1 + $2
+expr $1 - $2
+expr $1 / $2
+expr $1 * $2
+expr $1 % $2
+-------------------------------------- For Loop -----------
+for loop for java c/c++:
+
+for (initialization;condition;inc/dec)
+{
+_______
+_______
+}
+
+For loop for shell script:
+for (initialization;condition;inc/dec)
+do
+_______
+_______
+done
+
+Script:-
+
+echo "for loop demo starts.."
+for (( a=1;a<=5;a++ ))
+do
+echo $a
+done
+-------------------------------
+# in for loop initialization, increment/decrement are with ondition statement and in while loop incrementt/decrement in iside the body
+While-Loop:
+
+initialization
+while (condition )
+{
+---------
+---------
+increment/decrement
+}
+
+echo "while loop file.."
+i=1
+while ($1 -le 5 )
+do
+echo $i
+i='expr $i +1'
+done
+
+-------------------------------------
+Functions:
+
+
+
+
+

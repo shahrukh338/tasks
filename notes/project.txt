@@ -1,0 +1,93 @@
+sudo apt-get update
+sudo curl -fsSL get.docker.com | /bin/bash
+sudo usermod -aG docker ${USER}
+
+
+
+
+
+Installation:
+
+   2  sudo apt update
+    5  sudo apt install default-jre
+    6  sudo java -version
+    7  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    8  sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+    9  sudo apt update
+   10  sudo apt install jenkins
+   11  sudo systemctl start jenkins
+   12  sudo systemctl status jenkins
+   13  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   14  clear
+   15  sudo apt install docker.io -y
+   16  chmod 777 /var/run/docker.sock
+   17  sudo chmod 777 /var/run/docker.sock
+   18  sudo docker images
+   19  sudo su
+   20  clear
+       docker service create --replicas 3 -p 6060:6060 --name=application applications:latest 
+   21  docker service ps application
+   22  docker ps
+   23  clear
+   24  sudo service jenkins status
+   25  sudo usermod -aG docker jenkins
+   26  sudo service jenkins restart
+   27  clear
+   28  history
+
+
+tcp 2377
+tcp 7946
+tcp 4243
+udp 7946
+
+
+
+node{
+    stage('scm checkout'){
+        git credentialsId: 'Github', url: 'https://github.com/shahrukh338/application'
+    }
+    stage('building code with maven'){
+        sh 'mvn clean install'
+    }
+    stage('building image from code'){
+        sh 'docker build -t shahrukh338/applications .'
+    }
+    stage('pushing images to dockerhub'){
+        withCredentials([string(credentialsId: 'docker_cred', variable: 'dockerhub_pwd')]){
+            sh "docker login -u shahrukh338 -p ${dockerhub_pwd}"
+        }
+        sh 'docker push shahrukh338/applications'
+    }
+}
+
+
+
+task 2
+sh "docker login -u shahrukh338 -p {dockerhub_pwd}"
+
+1.scm checkout
+2.build with maven
+3.building image from code(shell)
+4.push image to docker hub
+  (with cre),sh docker login, 
+  docker push
+
+
+setup jenkins server to deploy applications
+
+developer commits the code into github
+we will setup jenkins cicd
+whenever code commit happens jenkins will pull that code 
+once code available in jenkins server then maven will build the code and create a artifact
+then will create docker image with docker file
+then push docker image into dockerhub repository
+then we will create a kubernetes cluster
+kubernetes cluster will have one master node and multiple worker nodes
+jenkins will interact with master machine and finally deploy our application inside pod in kubernates 
+if we want to access our application from outside we need to write service
+
+ created jenkins server, written CI-CD pipeline and configured master and slave 
+ created docker swarm cluster with Jenkins, Maven and docker hub
+
+

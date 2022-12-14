@@ -1,0 +1,17 @@
+steps
+1.install java
+2.cd /tmp3
+3.wget tar file_url
+4.untar file
+
+
+
+
+-->  cd opt/tomcat/bin
+	|__ ./shutdown.sh(to stop tomcat)
+	|__ ./startup.sh (to start tomcat)
+-->  vi opt/tomcat/conf/server.xml (to change portNumber)
+-->  sudo systemctl daemon-reload
+-->  sudo systemctl start tomcat
+-->  sudo systemctl status tomcat
+-->  sudo systemctl enable tomcat

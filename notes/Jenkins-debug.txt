@@ -1,0 +1,16 @@
+Solution
+Luckily for us, we can update the permissions with the help of some simple chmod commands.
+
+If we want our private key to be readable by the logged in user, we will use the following command:
+
+chmod 400 ~/.ssh/id_rsa
+If we want our private key to be both readable and writable by the logged in user, we will use this command instead:
+
+chmod 600 ~/.ssh/id_rsa
+
+
+
+Fix:
+Change the permissions of the ~/.ssh/id_rsa file after creation to 0600.
+
+

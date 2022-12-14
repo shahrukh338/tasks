@@ -1,0 +1,26 @@
+sudo systemctl stop jenkins
+ sudo yum install temurin-11-jdk
+sudo systemctl start jenkins
+
+
+
+
+
+
+
+
+
+
+pmt-api
+
+cron: H/2 * * * *
+
+#!/bin/bash
+# Create/Activate virtualenv
+/usr/local/bin/python3.9 -m venv pmt-api-env
+source pmt-api-env/bin/activate
+# Install Requirements
+pip install -r requirements.txt
+python3.9 manage.py makemigrations
+sudo systemctl restart gunicorn-pmt
+sudo systemctl restart nginx

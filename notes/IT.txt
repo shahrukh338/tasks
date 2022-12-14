@@ -1,0 +1,60 @@
+middleware(heap dumb, thread dumb)
+   --Middleware is software which lies between an operating system and the applications running on it. Essentially functioning as hidden translation layer, middleware enables communication and data management for distributed applications.
+	1.application-specific, 
+	2.information-exchange and 
+	3.management and support middleware.
+tomcat
+   --Apache Tomcat server: Apache Tomcat is a web container. It allows the users to run Servlet and JAVA Server Pages that are based on the web-applications. It can be used as the HTTP server. The performance of the Tomcat server is not as good as the designated web server.
+   --Apache Tomcat, also known as Tomcat Server, proves to be a popular choice for web developers building and maintaining dynamic websites and applications based on the Java software platform. 
+https server
+   --Hyper text Transfer Protocol Secure (HTTPS) is a protocol that secures communication and data transfer between a user's web browser and a website. HTTPS is the secure version of HTTP. The protocol protects users against eavesdroppers and man-in-the-middle (MitM) attacks.
+nginx--
+	NGINX is open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability.
+ 	Nginx, a popular web server software, can be configured as a simple yet powerful load balancer to improve your servers resource availability and efficiency.
+	
+iis--Internet Information Services (IIS) is a flexible, general-purpose web server from Microsoft that runs on Windows systems to serve requested HTML pages or files. An IIS web server accepts requests from remote client computers and returns the appropriate response
+jeus
+    --JEUS(java enterprice user solution) is a platform for developing, executing and managing applications in the web environment. It can quickly and easily implement cloud environments and execute large transactions. WebtoB is a powerful and stable next generation web server that overcomes the structural problems of existing web servers.
+webtob
+   --WebtoB is a web server that provides superior performance and reliability. It's a next-generation web server that provides outstanding performance by improving structural problems existing web servers have. It is designed for large-scale transaction processing.
+cicd--
+nexus
+    --Nexus Repository is an open source repository that supports many artifact formats, including Docker, Java™, and npm. With the Nexus tool integration, pipelines in your toolchain can publish and retrieve versioned apps and their dependencies by using central repositories that are accessible from other environments.
+sonarcube
+    --SonarQube (formerly Sonar) is an open-source platform developed by SonarSource for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells on 29 programming languages.
+    --SonarQube is a Code Quality Assurance tool that collects and analyzes source code, and provides reports for the code quality of your project. It combines static and dynamic analysis tools and enables quality to be measured continually over time.
+selenium
+   --- Selenium is basically used to automate the testing across various web browsers. It supports various browsers like Chrome, Mozilla, Firefox, Safari, and IE, and you can very easily automate browser testing across these browsers using Selenium WebDriver.
+   --- Selenium is an open-source tool that automates web browsers. It provides a single interface that lets you write test scripts in programming languages like Ruby, Java, NodeJS, PHP, Perl, Python, and C#, among others.
+jmeter
+    --Apache JMeter is an open source Java application designed to load test functional behavior and gauge software performance. Originally designed for testing web apps, it has since expanded to include other test-related function
+Restassured
+   --REST Assured is a Java library that provides a domain-specific language (DSL) for writing powerful, maintainable tests for RESTful APIs. In the following sections, I'll show you how to set up and configure REST Assured, write and run REST Assured tests, and apply some of its most powerful features.
+   --It removes the need for writing a lot of boilerplate code required to set up an HTTP connection, send a request and receive and parse a response. It supports a Given/When/Then test notation, which instantly makes your tests human readable.
+
+postman
+    --Postman is an application that allows us to test APIs utilizing a graphical user interface. Some of Postman's advantages include the collection feature and the possibility to create different testing environments. Postman is a user-friendly tool that helps us optimize our time when executing tests
+configuration of ssl
+   --Secure Sockets Layer (SSL) configurations contain the attributes that you need to control the behavior of client and server SSL endpoints. You create SSL configurations with unique names within specific management scopes on the inbound and outbound tree in the configuration topology
+backup middle ware systems
+VAPT
+   --VAPT stands for Vulnerability Assessment & Penetration Testing. It is a security testing to identify security vulnerabilities in an application, network, endpoint, and cloud. Both the Vulnerability Assessment and Penetration Testing have unique strengths and are often collectively done to achieve complete analysis.
+
+---------------MIDDLEWARE-----------------------
+
+Middleware is the general term used to describe the software / application that allows multiple software / applications to communicate with one another. Think of a language translator translating for two people or more who speak different languages.
+Its main advantages are:
+	* Enables different applications to communicate, despite differences in platforms and protocols.
+	* Enterprise level scaling.
+	* Traffic management, both inbound and outbound.
+Its main disadvantages are:
+	* Small companies with very small landscape and minimal or no inbound / outbound transaction traffics may be able to get away with direct integrations between the applications. Thus, having a Middleware may not provide as much advantage compared to larger enterprises.
+	* The higher the number of applications within the landscape, the more places one have to look at when troubleshooting. This is because of increased potential for each application to contribute to the issue.
+
+--------------------------------------------------------------------------
+
+
+
+
+
+

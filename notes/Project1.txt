@@ -1,0 +1,66 @@
+tools:
+jenkins
+terraform
+ansible
+kubernetes
+
+Applications:
+kafka: gathering all log files using kafka
+
+elastic beats:Beats are open source data shippers that you install as agents on your servers to send operational data to Elasticsearch. Elastic provides Beats for capturing: Audit data. Auditbeat. Log files and journals.
+
+elastic search : Elasticsearch is a distributed search and analytics engine built on Apache Lucene. Since its release in 2010, Elasticsearch has quickly become the most popular search engine and is commonly used for log analytics, full-text search, security intelligence, business analytics, and operational intelligence use cases.
+		 Elasticsearch is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. Elasticsearch is built on Apache Lucene and was first released in 2010 by Elasticsearch N.V. (now known as Elastic).
+
+logstash with kibana:
+Kibana:Kibana is a data visualization and exploration tool used for log and time-series analytics, application monitoring, and operational intelligence use cases
+
+azile process with kanban boards 
+slack communication with teams
+
+g)blue-print:
+g)
+-------------------------------------------------
+1.client
+2.what exactly requirement(they want all log data in observability dashboard and they are looking for dashboard)
+3.what exactly we are delevering
+--------------------------------------------------
+
+elastic beats--> kafka--> logstash--> elastic search--> will create dashboard in kibana
+--> Elastic beats:Beats is a free and open platform for single-purpose data shippers. They send data from hundreds or thousands of machines and systems to Logstash or Elasticsearch.
+types
+1.metric(for both windows and linux)
+2.filebeat for Linux and for windows )
+3.heart beat
+4.packet beat
+5.winlogbeat
+6.auditbeat
+
+
+
+logs
+services
+system info
+process info
+installed applications information
+
+
+{InfluxDB is a push-based system. It requires an application to actively push data into InfluxDB.
+
+Prometheus is a pull-based system. An application publishes the metrics at a given endpoint, and Prometheus fetches them periodically.}
+
+elk--elastic search locstag kibana 
+efk-- elastic search fluendite kibana
+elastic search-- analytics and full text search engine
+
+
+learned role based autherization strategy in jenkins 
+learned deployment and differnet types of services in Kubernetes
+
+
+
+
+
+
+
+

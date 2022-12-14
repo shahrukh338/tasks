@@ -1,0 +1,259 @@
+--> /var/lib/jenkins/workspace/DevOps-infra/target	(jenkins jobs path in cli)
+--> 
+
+# IMAGE_TAG in jenkins to call variable
+# BUILD_NUMBER in jenkins to call variable
+
+-----------------------------------------------------------------------------------------------------
+Pipeline Script:
+	scripted pipeline
+	Declaratie pipeline 
+scripted pipeline:-
+node{						(node('master') we can give like this also, which means where this job can run, by default it will run in master only)
+def mavenHome = tool name: "maven-3.6.3"	(we can give any varaible name but def, tool name should be same and this used to call maven command from global tool configuration and def is used to call function or variable), if we create a variable in node level then we can use in entire script)
+//git checkout					(in groovy // used for single line comment)
+stage('git checkout'){
+    git branch: 'dev', credentialId: 'dfdfdkfdkfksffkflk', url:
+'https://git-repo-url'
+}
+
+//building with maven
+stage('Build'){
+sh "$mavenHome/bin/mvn clean package"				(for winsows os we use bat instead of sh, the maven path is mavenHome/bin when we download maven with global tool configuration and $(dollar) is used to call the varaible )
+}
+//Generate sonarQube report
+stage('sonarqube report'){
+sh "$mavenHome/bin/mvn sonar:sonar"
+}
+
+//uploar artifact to Nexus repo
+stage('artifact to repo'){
+sh "$mavenHome/bin/mvn deploy"
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ sudo vi /usr/lib/systemd/system/jenkins.service(to change jenkins port number)
+root@ip-172-31-40-134:/opt/tomcat/bin# ./startup.sh(to start tomcat)
+
+Groovy:
+jenkins pipeline is a collection of events or jobs which are interlinked with one another in a sequence
+dynamic and static programming languages:
+Groovy installing in windows:
+java should be installed
+install in windows 
+------------------------------------
+IDE(intigrated development environment):
+Text editors:
+
+----------------------------------------------------------------
+needs to send a approval mail to stake holder before going to deploy
+once they stakeholder appoved then only the deployment should done by manual
+then this shoulddeploy into next available target environment
+------------------------------------------------------------------
+Q1. how to redeployment will happen by using jfrog(https://docs.docker.com/engine/reference/commandline/service_rollback/#:~:text=Use%20the%20docker%20service%20rollback,recent%20docker%20service%20update%20command.)
+Q2. ashokley land require k8s or not and what is benefit with it
+Q3. 
+1. diff between aws and kubernetes autoscaling
+2. what is the use of kubernetes approch
+artifactory use cases and open source artifactories
+
+-----------------------------------------------------
+1. before doing deployment need to take aproval from stakeholder via email
+2. then only the deployment start with manually
+
+----------------------------------------------------------------------------
+
+
+
+docker installation
+where we install k8s
+how many pods may install what is diff b/w elb and k8s
+----------------------------------------------------------------
+ecs 
+codepipeline codedepoy beanstalk like jenkins
+
+=======================
+when we have freequent releases
+when we have huge microservices 
+this will be managed by cloud providers
+it is application level auto scaling but aws is resource level auto scaling
+we can deploy statefull set applications with k8s, and aws it is not possible
+in k8s RBAC is possible for accessing application but in aws its not possible
+
+-------------------------------------
+aws auto scaling:
+we take our application as a image and just it will create a complete new application and instance
+ 	--but in k8s we can autoscale particular service which having huge customer traffic
+we have to give % of customer to create a new instance or application
+	-- but in k8s it will be managed by cloud providers
+in aws we cant communicate server to server, and we can just give the port numbers which can be open
+	-- but in kubernetes the servers can communicate with another easily and we have multiple services to expose our application
+if we want to implement any changes in application then we need to stop the service and again take that instance as a backup image then we can again start the application
+	--but in k8s the changes will be reflected instantly
+--------------------------------------------------------------------------------------------------------
+
+q. Ashok leyland 
+	- customer load
+	- how frequently releases will happen
+	- how freequently microservices changes will happen
+	
+workflow of project :- php code--> github--> jenkins --> Project manager approval --> developer--> developer will do deployment --> server php as a zip 
+
+---------------------------------------------------------------------------------------------------------
+1. create ec2 servers(1.jenkins 2.docker eployment server toncat)
+2. install java, jenkins in jenkins server and after docker in jenkins server 
+3. only install docker in deployment server
+4. 
+
+--------------------
+sudo apt-get update
+sudo apt-get update
+grep jre
+    5  java
+    6  apt install openjdk-8-jre-headless
+    7  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+    8  sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+    9  sudo apt update
+   10  sudo apt install jenkins
+----------------------------
+sudo usermod -aG docker jenkins--jenkins server
+sudo usermod -aG docker ubuntu -- deployment server
+/var/lib/jenkins/workspace/web-app-docker/target$
+docker run -d -p 8080:8080 --name webapps shahrukh338/web-app-docker:13
+docker service create --name webapp -p 8080:8080 --network swarm_ntwk --replicas 3 imagename
+docker service scale servicename=3
+-----------------------------------changing tomcat port to multiple hosts---------
+49
+
+
+ You need to take a look at the conf/server.xml configuration file to add a new connector for the port you want. For example, if you have a connector like this:
+
+<Connector port="8080" 
+           protocol="HTTP/1.1" 
+           connectionTimeout="20000" 
+           redirectPort="8443" 
+           URIEncoding="UTF-8" />
+
+----------------------------
+horizental scaling: which means it creates new server(ec2) with same configuration instance and it doesnt require downtime.
+vertical scaling: which means increasing server size (ex: 2 core server to 4 core) without creating a new server(ec2) and requires some downtime
+* cloud providers dont provide vertocatl auto scaling
+
+---> /var/lib/jenkins/workspace/jobe_folder/target(.war file directory)
+	/var/lib/jenkins/workspace/mvn_package/target
+Roles in aws: usually roles we use to interact one aws service with another
+polacies: in aws we give permissions through polacies
+
+------------------
+previleged 
+
+
+
+54.176.31.209
+
+
+------------------------------------------------------------
+
+Master Node:
+-->  sudo apt-get update    (update)
+-->  java
+-->  sudo apt install openjdk-11-jre-headless (install java)
+-->  wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+--> sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+--> sudo apt update
+--> sudo apt install jenkins   	(install jenkins)
+-->  sudo systemctl status jenkins	
+-->  sudo apt install docker.io	(install docker)
+-->  sudo usermod -aG docker $USER	(add user to docker group)
+-->  sudo usermod -aG docker ${jenkins}
+-->  sudo usermod -aG docker jenkins
+-->  sudo usermod -aG docker $jenkins
+--> sudo reboot			(reboot system)
+--> docker ps
+
+pluggins:
+--> install ssh agent pluggin 
+
+write pipeline:
+ 
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){						#(maven build)-->global tool configuration--> add maven--> apply--> save
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/web-app-docker:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){									#(give dockerhb username and password by using withCredentials:Bind....-->secret text --> add-->jenkins--> kind: secret text-->secret: github password))
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/web-app-docker:${buildnumber}"
+    }
+    stage("Deploying application as Docker container in deployment server"){
+        
+        sshagent(['docker_test_server_ssh']) {									#(pipeline syntax--> ssh agent--> add--> jenkins -->ssh username with privatekey -->paste deployment server pem file--> add-->generate pipeling)
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.87.100 docker rm -f webappcontainer || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.87.100 docker run -d -p 8082:8080 --name webappcontainer shahrukh338/web-app-docker:${buildnumber}"
+       }
+         
+    }
+}
+ 
+
+----- swarm ------
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/web-app-docker:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/web-app-docker:${buildnumber}"
+    }
+    stage("Deploying application as Docker container in deployment server"){
+        
+        sshagent(['docker_test_server_ssh']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.87.100 docker service rm -f swarmwebapp || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@13.233.87.100 docker service create --name swarmwebapp -p 8084:8080 --replicas 2 shahrukh338/web-app-docker:${buildnumber}"
+       }
+         
+    }
+}
+--------------------------------------------------------
+DEPLOYMENT SERVER:
+
+--> sudo apt update
+--> sudo apt install docker.io
+--> sudo usermod -aG docker $USER	(add user to docker group)
+--> sudo usermod -aG docker ${ubuntu}
+--> sudo usermod -aG docker ubuntu
+--> sudo reboot			(reboot system)
+--> docker ps
+
+
+
+54.215.105.8
+172.31.9.3
+
+
+jenkinstest2241@gmail.com
+22April@2001.

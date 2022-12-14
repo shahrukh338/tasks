@@ -1,0 +1,28 @@
+----------------------------------------------------------------- Bash Scripting -----------------------------------------------------------------
+
+* When you first launch the shell, it uses a startup script located in the .bashrc or .bash_profile file which allows you to customize the behavior of the shell.
+
+* When a shell is used interactively, it displays a $ when it is waiting for a command from the user. This is called the shell prompt.
+
+				[username@host ~]$
+
+* If shell is running as root, the prompt is changed to #. The superuser shell prompt looks like this:
+
+				[root@host ~]#
+
+--> What is a Bash Script?
+    A bash script is a series of commands written in a file. These are read and executed by the bash program. The program executes line by line.
+    For example, you can navigate to a certain path, create a folder and spawn a process inside it using the command line.
+    You can do the same sequence of steps by saving the commands in a bash script and running it. You can run the script any number of times.
+
+--> How to define variables ?
+ ## We can define a variable by using the syntax variable_name=value. To get the value of the variable, add $ before the variable.
+
+#!/bin/bash
+# A simple variable example
+greeting=Hello
+name=Tux
+echo $greeting $name
+
+
+----------------------------------------------------------------------------------------------------------------------

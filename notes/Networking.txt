@@ -1,0 +1,311 @@
+
+
+1.networking
+linux admin
+python
+------------------------
+access files
+exchange data
+share some resources
+want to do communication
+to give print
+------------types of networking----------------------------
+A computer network is mainly of four types:
+	LAN(Local Area Network)
+	PAN(Personal Area Network)
+	MAN(Metropolitan Area Network):
+	WAN- wide area network-which connects all LAN network
+Topology: A network topology is the physical and logical arrangement of nodes and connections in a network. Nodes usually include devices 
+          such as switches, routers and software with switch and router features. Network topologies are often represented as a graph.
+          TYPES: 7 types
+		1.Point-to-point network topology.
+		2.Bus network topology. 
+		3.Ring network topology.
+		4.Star network topology.
+		5.Mesh network topology.
+		6.Tree network topology.
+		7.Hybrid network topology.
+
+---------requirement to building a network-------
+devices
+connections
+switches
+routers
+network servers
+------------------------------ OSI model (open system interconnection model) ------------------
+layers: will have 7 Layer
+7.application layer: ex HTTP, FTP, DNS
+6.presentation layer: ex jpg and gif pictures
+5.session layer: SQL and network file system
+4.transport layer : it ensures ex if we send msg then it will check either it is deliverefd properly or not ex TCP and UDP
+3.network layer: ex routers
+2.data layer : ex network card
+1.physical layer :ex cable wire and blutooth
+
+* 5-7 layers are called upper layer
+* 1-4 layer are called lower layer
+
+Protocols(ex http): A network protocol is an established set of rules that determine how data is transmitted 
+         between different devices in the same network. Essentially, it allows connected devices to communicate with 
+         each other, regardless of any differences in their internal processes, structure or design.
+	1.network communication protocols
+	2.secuirity protocols
+	3.network monitoring protocols
+generally used protocols: TCP, UDP, HTTP, IP, ETHERNET, BLUTOOTH, DNS
+
+
+-------------------------------------Network servers--------------------
+
+network servers: Network servers are dedicated computers connected to a network that run software intended to process client requests and provide 
+		appropriate responses (an application on a network that provides a service to user)
+Examples: 
+database servers
+mail servers
+print servers
+file servers
+web servers
+application servers
+game servers
+------------------------------
+IP addressing: An IP address, or Internet Protocol address, is a series of numbers that identifies any device on a network. Computers use IP addresses to communicate 
+		with each other both over the internet as well as on other networks and it will be composed with HostID and Port
+IPV4(32 bit) and IPV6(128 bit)
+
+NAT: NAT stands for network address translation. It's a way to map multiple local private addresses to a public one before transferring the information.
+	 Organizations that want multiple devices to employ a single IP address use NAT, as do most home routers.
+
+Netwok port: A port number is a way to identify a specific process to which an internet or other network message is to be forwarded when it arrives at a server.
+
+for example: 182.155.10.38:8080(every value called as octate)
+
+here having 4 octates and first three(182.155.10) called as Network ID 4th octate called(38) as HostID and 8080 is port number
+
+classed in networking:
+         octate1  octate2 octate3   octate4
+class A: network  host    host    host  ---> 16 million IP  --> 127.255.255.255
+class B: network  network host    host  ---> 65535
+class C: network  network network host  --->  254 hosts
+
+subnet masks: A subnet mask is used to divide an IP address into two parts. One part identifies the host (computer), the other part identifies the network to which it belongs
+
+CIDR:-CIDR (Classless Inter-Domain Routing) -- also known as supernetting -- is a method of assigning Internet Protocol (IP) addresses that improves the efficiency of address distribution 
+			and replaces the previous system based on Class A, Class B and Class C networks.by using cidr we can reduse IP address wasting
+			 --> 10.28.135.144/28 (here /28 giving to reduce IP adresses)           
+
+
+DNS:-(Domain Name System), translates human readable domain names (for example, www.amazon.com) to machine readable IP addresses (for example, 192.0. 2.44).
+  |
+   --> Recursive name server(resolver):A recursive DNS server is a domain name system server that takes website name or URL (uniform resource locator) requests from users and checks the records attained from authoritative DNS servers for the associated IP address.
+
+            |
+	    --> Root name server(13):A Root Name Server is a name server for the domain name server's root zone that directly answers requests for records in the root zone and also answers other requests,
+	    --> TLD(top level domain) name server:A TLD nameserver maintains information for all the domain names that share a common domain extension, such as .com, . net, or whatever comes after the last dot in a url. For example, a .com TLD nameserver contains information for every website that ends in '.com'
+            --> Autherative name server: An authoritative name server is a name server that gives answers in response to questions asked about names in a zone. An authoritative-only name server returns answers only to queries about domain names that have been specifically configured by the administrator.
+
+
+
+example: mail.google.com(here mail is Root level domain, google is second domain, .com is top level domain )
+
+Routing: A router receives and sends data on computer networks. Routers are sometimes confused with network hubs, modems, or network switches. However, routers can combine the functions of these components, and connect with these devices, to improve Internet access or help create business networks
+Route table: A routing table is a set of rules, often viewed in table format, that is used to determine where data packets traveling over an Internet Protocol (IP) network will be directed. All IP-enabled devices, including routers and switches, use routing tables.
+Routing Protocols:
+routing types:A routed protocol is used to deliver application traffic. It provides appropriate addressing information in its internet layer or network layer to allow a packet to be forwarded from one network to another. Examples of routed protocols are the Internet Protocol (IP) and Internetwork Packet Exchange (IPX).
+1.Static : A static route is a pre-determined pathway that a packet must travel to reach a specific host or network.
+2.dynamic: a technique of finding the best path for the data to travel over a network in this process a router can transmit data through various different routes and reach its destination on the basis of conditions at that time of communication circuits.
+
+--> ip address show --> to get ip address details
+--> ifconfig --> to get ip address detail s
+--> ip route --> to check route
+--> netstat -rn --> to check the route
+--> nmcli --> to get all details of DNS ip 
+--> cat /etc/resolv.conf --> to check nameserver
+--> dig google.com --> to check remote ip details
+--> host google.com --> to check remote ip details
+--> nslookup --> to check remote ip details
+--> traceroute remotemachine.com --> to check remote route details
+
+
+------------------------------------LINUX----------------------------------
+shell types
+Bourne shell
+c shell 
+korn shell
+Bash shell(very common used shell)
+Zsh
+FIsh
+
+* there is no restriction for shells we can install multiple shells and switch to those shell which ever we want
+
+commands;-
+--> who
+--> uname
+--> uname -a
+--> hostname
+--> man ls( used for help)
+--> man -k
+--> apropos
+--> whatis command 
+--> history
+--> !23
+ # linux is a case sensetive means if create India and INDIA.then both files will be created
+--> ls -la
+--> ls -lrt
+--> vi 
+    - (i a A shift+o )
+    - esc :w newfilename----> to create a newfile with changes
+    - :e! ( to reset changes in vi)
+    - :sh --> return to shell and ctrl+d to go back to vi
+    - :set nu
+    - : 11,15d-->to delete 11 to 15 lines in file
+    - dw
+    - dd --> delete whole line
+    - dG --> to delete to end of files
+    - diG --> to dleete to start of files
+    - shift+g
+    - 30+shift+g--> TO go to 30th line of file
+    - shift+g
+
+--> vim
+--> nano
+--> 
+
+-----------------------------------------
+
+4.30networking in linux
+2.30ansible
+2
+
+---------------
+variables: is a container to store the data
+
+data types: 
+	test
+	numeric: int 1000
+        	 float (pi value3.14)
+       		  complex 3.5, 7.4
+	sequence
+	mapping
+	set
+	boolean true or false
+
+Input/output:
+	input x = input("enter nuber")
+	output print("hello")
+
+Operators: oparands and oparators
+	arithmatics	 + - * % /
+	assignment	 a=3+4 "here a 3 4 are aparands and + is oparator"
+	comparison 	 < > <= >= != etc (ex: 3!=4)
+	logical 	 and or not  T&T=T, T&F=F
+	identity	 is==, isnot!=
+	membership	 
+	bitwise		 & | ! ^
+
+######values in python starts with 0,1,2,3,4,5,6.....
+
+Lists: x=["abc", 19, 3.14, true] 	uses []
+
+tuple y=("abc", 			uses ()
+	   19,3.14,
+	   true)
+
+set    z={"abc", 			uses {}
+	   19,3.14,
+	   true}
+	 
+dictionary a= {			#dictionary is a key value pair
+	     "name":"masthan"
+	     "lang":"english"
+	     "likes":"100"
+	      }
+----------------
+functions:
+	block of code
+	repeated use
+	deviding task
+    creating --> def fuction-name():
+	 	     print("Hello World")
+    calling  --> function-name()
+    # there are two types in fuctions 
+ 	1) Arguments --> def add(a,b):
+			     x=a+b
+			     print(x)
+                 calling--> add(2,3)
+
+	2) Return  --> def add(a,b):
+			   x=a+b
+			   return x
+		  calling--> ans(2,3)
+			     print(ans)
+
+
+--> if
+--> elif
+--> else
+--> while loop : to do a work repeatedly
+--> for loop
+--> Lambda
+
+--> classes(plan blue print) and objects(home)
+    Init
+ variable(data) function(methods)
+--> inheritance
+--> File handling
+
+--------------------------------------------------------
+frontend
+backend 
+web application
+
+conbination of code + required dependencies
+
+
+PYTHON Basics Concepts :
+
+string : String is a collection of alphabets, words or other characters
+
+array [  ]  : array are containers which are able to store more than one item at the same time. Specifically, they are an ordered collection of elements with every value being of the same data type
+
+dictionary {  } : Dictionaries are used to store data values in key:value pairs. A dictionary is a collection which is ordered*, changeable and do not allow duplicates
+
+module: module is a file contains code written by someone
+1. Build in module 
+2. external modules
+
+PIP: pip is a package manager for python. we use pip to install modules in our system. ex pip install flask
+
+variable: a variable is a symbolic name for information. ex a=3  b=5
+	key words : are the reserved words in python which we cant use them as variable
+	Identifiers: class | function | varaible name
+
+What are global and local variables in Python?
+	Global variables are variables declared outside a function. Local variables are variables declared inside a function. 
+	While global variables cannot be directly changed in a function, you can use the global keyword to create a function that will change the value of a global variable
+
+Function: a function is block of code which only runs when it called (def). You can pass data, known as parameters, into a function. A function can return data as a result.
+
+	- def is to start the function header
+	- :(collon) is to mark the end of the function
+	ex:--- 	def function_name(parameters) :
+
+Loop : A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string). This is less like the for keyword in other programming languages, 
+	and works more like an iterator method as found in other object-orientated programming languages.
+	there are three types of loops in Python : 
+		1. while loop.
+		2. for loop.
+		3. nested loops
+
+Class: is like an object constructor or a "blu print" for creating objects (a blue print is created by a programmer for an object)
+
+Request Module in Python : The requests module allows you to send HTTP requests using Python. The HTTP request returns a Response Object with all the response data (content, encoding, status, etc).
+
+
+
+
+
+
+
+
+
+
+

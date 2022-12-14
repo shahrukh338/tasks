@@ -1,0 +1,33 @@
+Kafka:distributed streaming platform
+kafka competetors: Rabbit MQ, AMQP, Java MS, Amazon kinesis
+BigData: collection of data--> transfer data(kafka)--> storing data --> analysing data
+
+Kafka Use cases:
+Reliability − Kafka is distributed, partitioned, replicated and fault tolerance.
+
+Scalability − Kafka messaging system scales easily without down time..
+
+Durability − Kafka uses Distributed commit log which means messages persists on disk as fast as possible, hence it is durable..
+
+Performance − Kafka has high throughput for both publishing and subscribing messages. It maintains stable performance even many TB of messages are stored.
+
+----------------------------------------------
+data(records)
+topic(collection of records)
+
+
+
+
+1	Topics
+2	Partition
+3	Partition offset
+4	Replicas of partition
+5	Brokers
+6	Kafka Cluster
+7	Producers
+8	Consumers
+9	Leader
+10	Follower
+
+
+
