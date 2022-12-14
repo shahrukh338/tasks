@@ -1,0 +1,30 @@
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/java-web-app:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/java-web-app:${buildnumber}"
+    }
+    stage("Deploying application in same jenkins server"){
+        
+        sshagent(['docker_test_server_ssh']) {
+            sh "docker rm -f webappcontainer || true"
+            sh "docker run -d -p 8085:8080 --name webappcontainer shahrukh338/java-web-app:${buildnumber}"
+       }
+         
+    }
+}
