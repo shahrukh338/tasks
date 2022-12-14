@@ -1,0 +1,39 @@
+node{
+    def buildnumber = BUILD_NUMBER
+    stage('SCM Checkout') {
+        git url: 'https://github.com/shahrukh338/java-web-app-docker-bng.git',branch: 'master'
+    }
+    stage('maven clean package'){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("build docker image"){
+        
+        sh "docker build -t shahrukh338/web-app-docker:${buildnumber} ."
+    }
+    
+    stage("docker login and push to docker hub"){
+        withCredentials([string(credentialsId: 'docker_hub_passwd', variable: 'docker_hub_passwd')]) {
+            sh "docker login -u shahrukh338 -p ${docker_hub_passwd}"
+        }
+        
+        sh "docker push shahrukh338/web-app-docker:${buildnumber}"
+    }
+    stage("Deploying application as Docker container in deployment server"){
+        
+        sshagent(['docker_test_server_ssh']) {
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.199.247 docker rm -f webappcontainer || true"
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@52.66.199.247 docker run -d -p 8080:8080 --name webappcontainer shahrukh338/web-app-docker:${buildnumber}"
+       }
+         
+    }
+}
+
+
+// pipeline steps
+// building pipeline in jenkins server
+// show latest build version in browser
+// rollback 
+// scaling service (container)
+// updating service with particular version(image) by pulling from github(docker pull shahrukh338/java-swarm1:4)
+// deleting a running container which is re-created by cluster
